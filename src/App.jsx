@@ -33,12 +33,12 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-bold text-gray-900">陈思羽的个人网站</h1>
+              <h1 className="text-xl font-bold text-gray-900">陈思羽的个人网站|CHEN SIYU's Profile</h1>
             </div>
             <div className="flex items-center space-x-4">
-              <a href="#profile" className="text-gray-700 hover:text-blue-600">个人资料</a>
-              <a href="#videos" className="text-gray-700 hover:text-blue-600">我的视频</a>
-              <a href="#contact" className="text-gray-700 hover:text-blue-600">联系我</a>
+              <a href="#profile" className="text-gray-700 hover:text-blue-600">个人资料|Introduction</a>
+              <a href="#videos" className="text-gray-700 hover:text-blue-600">我的作品|My Works</a>
+              <a href="#contact" className="text-gray-700 hover:text-blue-600">联系我|Contact to me</a>
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@ function App() {
               <div className="flex flex-col md:flex-row items-center">
                 <div className="mb-6 md:mb-0 md:mr-8">
                   <img 
-                    src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20portrait%20photo%20asian%20male&image_size=square_hd" 
+                    src="./src/assets/image/蓝色肖像.png" 
                     alt="个人照片" 
                     className="w-48 h-48 rounded-full object-cover"
                   />
