@@ -1,6 +1,10 @@
-# React + Vite
+# 陈思羽的个人网站 / CHEN SIYU's Profile
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+基于 React + Vite 的个人主页项目。
+
+## 本地图片
+
+若需使用本地头像，请将图片命名为 `蓝色肖像.png` 并放入 **`public`** 目录，即可通过 `/蓝色肖像.png` 访问。未放置时页面会使用默认占位图。
 
 Currently, two official plugins are available:
 

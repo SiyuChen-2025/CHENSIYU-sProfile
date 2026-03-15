@@ -38,7 +38,7 @@ function App() {
             <div className="flex items-center space-x-4">
               <a href="#profile" className="text-gray-700 hover:text-blue-600">个人资料|Introduction</a>
               <a href="#videos" className="text-gray-700 hover:text-blue-600">我的作品|My Works</a>
-              <a href="#contact" className="text-gray-700 hover:text-blue-600">联系我|Contact to me</a>
+              <a href="#contact" className="text-gray-700 hover:text-blue-600">联系我 | Contact me</a>
             </div>
           </div>
         </div>
@@ -52,9 +52,10 @@ function App() {
               <div className="flex flex-col md:flex-row items-center">
                 <div className="mb-6 md:mb-0 md:mr-8">
                   <img 
-                    src="./src/assets/image/蓝色肖像.png" 
+                    src="/蓝色肖像.png" 
                     alt="个人照片" 
                     className="w-48 h-48 rounded-full object-cover"
+                    onError={(e) => { e.target.src = 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20portrait%20photo%20asian%20male&image_size=square_hd'; }}
                   />
                 </div>
                 <div className="flex-1">
@@ -85,7 +86,7 @@ function App() {
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">我的视频</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {videos.map((video) => (
-              <div key={video.id} className="bg-white shadow-md rounded-lg overflow-hidden">
+              <div key={video.id} className="bg-white shadow-md rounded-lg overflow-hidden video-card">
                 <div className="relative pb-[56.25%]">
                   <img 
                     src={video.thumbnail} 
