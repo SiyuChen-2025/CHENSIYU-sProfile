@@ -1,30 +1,202 @@
-/* Tailwind CSS CDN */
 @import url('https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css');
 
-/* 自定义样式 */
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+:root {
+  --page-bg: #f8fafc;
+  --card-bg: #ffffff;
+  --accent: #0f766e;
+  --accent-hover: #0d9488;
+  --accent-soft: #ccfbf1;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
 }
 
-/* 视频卡片悬停效果 */
-.video-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s ease;
-}
-
-/* 平滑滚动 */
 html {
   scroll-behavior: smooth;
 }
 
-/* 响应式调整 */
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: var(--text);
+  background: var(--page-bg);
+}
+
+.profile-nav {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.profile-nav a {
+  color: var(--text-muted);
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  transition: color 0.2s, background 0.2s;
+}
+
+.profile-nav a:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.profile-hero {
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+  color: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-hover);
+}
+
+.profile-hero .avatar-wrap {
+  flex-shrink: 0;
+  padding: 1.5rem;
+}
+
+.profile-hero .avatar-wrap img {
+  border: 4px solid rgba(255,255,255,0.35);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.profile-hero h2 {
+  color: #fff;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.profile-hero .sub {
+  color: rgba(255,255,255,0.85);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.profile-hero .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+}
+
+.profile-hero .meta-item {
+  background: rgba(255,255,255,0.15);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.profile-hero .meta-item strong {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+  margin-bottom: 0.25rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+
+.video-card {
+  background: var(--card-bg);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--accent-soft);
+}
+
+.video-card .play-btn {
+  background: rgba(15, 118, 110, 0.9);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.video-card:hover .play-btn {
+  background: var(--accent);
+  transform: scale(1.05);
+}
+
+.video-card .card-link {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s;
+}
+
+.video-card .card-link:hover {
+  background: var(--accent-hover);
+}
+
+.contact-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.contact-card:hover {
+  border-color: var(--accent-soft);
+  box-shadow: var(--shadow);
+}
+
+.contact-card svg {
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.contact-card h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.contact-card p {
+  font-size: 0.9375rem;
+  color: var(--text);
+}
+
+.profile-footer {
+  background: #0f172a;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.875rem;
+}
+
+.profile-footer a {
+  color: #5eead4;
+  text-decoration: none;
+}
+
+.profile-footer a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
-  .hero-section {
-    padding: 2rem 1rem;
+  .profile-hero {
+    text-align: center;
   }
-  
-  .video-grid {
-    grid-template-columns: 1fr;
+  .profile-hero .meta {
+    justify-content: center;
   }
 }

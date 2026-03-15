@@ -1,20 +1,20 @@
 # 陈思羽的个人网站 / CHEN SIYU's Profile
 
-基于 React + Vite 的个人主页项目。
+基于 React + Vite 的个人主页。
 
-## 主页头像
+## 直接打开网站（外围）
 
-请将你的个人照片放入 **`public`** 目录，并命名为 **`avatar.png`**（或把现有头像改名为 `avatar.png` 再放进 `public`）。放好后刷新页面即可显示。未放置时会出现灰色人物占位图。
+**线上地址：**  
+**https://siyuchen-2025.github.io/CHENSIYU-sProfile/**
 
-Currently, two official plugins are available:
+浏览器打开上面链接即可访问。本地开发运行 `npm run dev` 后访问 http://localhost:5173 。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 部署说明（GitHub Pages）
 
-## React Compiler
+当前已配置 GitHub Actions，每次推送到 `master` 会自动构建并部署。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+请在仓库 **Settings → Pages** 里将 **Build and deployment → Source** 选为 **GitHub Actions**（不要选 “Deploy from a branch”），保存后等下一次 push 即可自动发布。
 
-## Expanding the ESLint configuration
+## 头像
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+将个人照片命名为 **`avatar.png`** 放入 **`public`** 目录即可在首页显示。
