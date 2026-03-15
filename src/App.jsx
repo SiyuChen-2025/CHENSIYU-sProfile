@@ -52,10 +52,13 @@ function App() {
               <div className="flex flex-col md:flex-row items-center">
                 <div className="mb-6 md:mb-0 md:mr-8">
                   <img 
-                    src="/蓝色肖像.png" 
+                    src="/avatar.png" 
                     alt="个人照片" 
-                    className="w-48 h-48 rounded-full object-cover"
-                    onError={(e) => { e.target.src = 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20portrait%20photo%20asian%20male&image_size=square_hd'; }}
+                    className="w-48 h-48 rounded-full object-cover bg-gray-200"
+                    onError={(e) => {
+                      e.target.onerror = null
+                      e.target.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" fill="none"><circle cx="96" cy="96" r="96" fill="#e5e7eb"/><circle cx="96" cy="76" r="28" fill="#9ca3af"/><path fill="#9ca3af" d="M96 116c-33 0-60 18-60 40v12h120v-12c0-22-27-40-60-40z"/></svg>')
+                    }}
                   />
                 </div>
                 <div className="flex-1">

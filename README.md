@@ -2,9 +2,9 @@
 
 基于 React + Vite 的个人主页项目。
 
-## 本地图片
+## 主页头像
 
-若需使用本地头像，请将图片命名为 `蓝色肖像.png` 并放入 **`public`** 目录，即可通过 `/蓝色肖像.png` 访问。未放置时页面会使用默认占位图。
+请将你的个人照片放入 **`public`** 目录，并命名为 **`avatar.png`**（或把现有头像改名为 `avatar.png` 再放进 `public`）。放好后刷新页面即可显示。未放置时会出现灰色人物占位图。
 
 Currently, two official plugins are available:
 
