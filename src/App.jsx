@@ -52,7 +52,7 @@ function App() {
               <div className="flex flex-col md:flex-row items-center">
                 <div className="mb-6 md:mb-0 md:mr-8">
                   <img 
-                    src="/avatar.png" 
+                    src={`${import.meta.env.BASE_URL}avatar.png`}
                     alt="个人照片" 
                     className="w-48 h-48 rounded-full object-cover bg-gray-200"
                     onError={(e) => {
