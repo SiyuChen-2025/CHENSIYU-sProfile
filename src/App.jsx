@@ -33,7 +33,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-bold text-gray-900">陈思义的个人网站</h1>
+              <h1 className="text-xl font-bold text-gray-900">陈思羽的个人网站</h1>
             </div>
             <div className="flex items-center space-x-4">
               <a href="#profile" className="text-gray-700 hover:text-blue-600">个人资料</a>
@@ -58,7 +58,7 @@ function App() {
                   />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">陈思义</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">陈思羽</h2>
                   <p className="text-gray-600 mb-6">
                     热爱旅行、编程和分享生活的个人博主。这里是我的个人空间，记录我的生活点滴和学习心得。
                   </p>
@@ -157,7 +157,7 @@ function App() {
       {/* 页脚 */}
       <footer className="bg-gray-900 text-white py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          <p>© 2026 陈思义的个人网站. 保留所有权利.</p>
+          <p>© 2026 陈思羽的个人网站. 保留所有权利.</p>
         </div>
       </footer>
     </div>
