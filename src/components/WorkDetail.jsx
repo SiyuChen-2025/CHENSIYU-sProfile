@@ -7,29 +7,27 @@ function WorkDetail() {
   const navigate = useNavigate()
   const workId = Number.parseInt(id ?? '', 10)
   const work = Number.isNaN(workId) ? null : getWorkById(workId)
+
   const isVisualCollection = work?.id === 8 || work?.id === 9
   const visualImages = work?.galleryImages?.length ? work.galleryImages : work ? [work.coverImage] : []
+  const isWorkwareCode = work?.slug === 'workwarecode' || work?.id === 2
 
   useEffect(() => {
     const handleEsc = (e) => {
-      if (e.key === 'Escape') {
-        navigate('/')
-      }
+      if (e.key === 'Escape') navigate('/')
     }
-
     document.addEventListener('keydown', handleEsc)
-    
-    return () => {
-      document.removeEventListener('keydown', handleEsc)
-    }
+    return () => document.removeEventListener('keydown', handleEsc)
   }, [navigate])
+
+  const backHome = () => navigate('/')
 
   if (!work) {
     return (
       <div className="detail-empty-page">
         <div className="detail-empty-card">
           <h1>作品未找到</h1>
-          <button onClick={() => navigate('/')} className="detail-back-button">
+          <button onClick={backHome} className="detail-back-button">
             返回首页
           </button>
         </div>
@@ -41,69 +39,65 @@ function WorkDetail() {
     <div className="detail-page">
       <header className="detail-header">
         <div className="detail-header-inner">
-          <button onClick={() => navigate('/')} className="detail-back-button">
+          <button onClick={backHome} className="detail-back-button">
             返回首页
           </button>
           <div className="detail-title-wrap">
             <h1>{work.title}</h1>
-            <p>{work.subtitle}</p>
+            {isVisualCollection ? null : <p>{work.subtitle}</p>}
           </div>
         </div>
       </header>
-      <main className={isVisualCollection ? 'detail-main detail-main-visual' : 'detail-main'}>
+
+      <main className={`detail-main${isVisualCollection ? ' detail-main-visual' : ''}`}>
         {isVisualCollection ? (
-          <section className="detail-visual-wall">
+          <div className="detail-visual-wall">
             {visualImages.map((image, index) => (
               <figure key={`${image}-${index}`} className="detail-visual-item">
-                <img src={image} alt={`${work.title}-${index + 1}`} />
+                <img src={image} alt={`${work.title}-${index + 1}`} loading="lazy" decoding="async" />
               </figure>
             ))}
-          </section>
+          </div>
         ) : (
           <>
-            <section className="detail-hero-card">
-              <img src={work.coverImage} alt={work.title} className="detail-cover-image" />
-              <div className="detail-hero-content">
-                <p className="detail-desc">{work.description}</p>
-                <div className="detail-meta-grid">
-                  <div className="detail-meta-item">
-                    <span>项目周期</span>
-                    <strong>{work.period}</strong>
-                  </div>
-                  <div className="detail-meta-item">
-                    <span>项目关键词</span>
-                    <strong>{work.tags.join(' · ')}</strong>
-                  </div>
+            {/* 仅保留：项目周期 + 项目关键词 */}
+            <article className="detail-section-card">
+              <div className="detail-meta-grid">
+                <div className="detail-meta-item">
+                  <span>项目周期</span>
+                  <strong>{work.period}</strong>
+                </div>
+                <div className="detail-meta-item">
+                  <span>项目关键词</span>
+                  <strong>{work.tags.join(' · ')}</strong>
                 </div>
               </div>
-            </section>
+            </article>
 
-            <section className="detail-section-grid">
-              <article className="detail-section-card">
-                <h2>项目概述</h2>
-                <p>{work.summary}</p>
-              </article>
-              <article className="detail-section-card">
-                <h2>问题与挑战</h2>
-                <p>{work.challenge}</p>
-              </article>
-              <article className="detail-section-card">
-                <h2>方案与过程</h2>
-                <p>{work.solution}</p>
-              </article>
-              <article className="detail-section-card">
-                <h2>结果与反思</h2>
-                <p>{work.outcome}</p>
-              </article>
-            </section>
+            {/* 仅保留：项目概述 */}
+            <article className="detail-section-card">
+              <h2>项目概述</h2>
+              <p>{work.summary}</p>
+            </article>
 
+            {/* 仅保留：成果展示（视频/图片/文本） */}
             <section className="detail-gallery-card">
-              <h2>素材与成果展示区</h2>
-              <p>你可以在这里补充最终视觉稿、流程图、视频或演示链接。</p>
+              <h2>成果展示</h2>
+
+              {isWorkwareCode ? (
+                <div className="detail-video-wrap">
+                  <video controls playsInline preload="metadata">
+                    <source src={`${import.meta.env.BASE_URL}workwarecodemethods.mp4`} type="video/mp4" />
+                  </video>
+                </div>
+              ) : (
+                <p>{work.outcome}</p>
+              )}
             </section>
           </>
         )}
       </main>
+
       <footer className="detail-footer">
         <div className="detail-footer-inner">
           <p>© 2026 陈思羽</p>

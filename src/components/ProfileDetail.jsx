@@ -242,6 +242,7 @@ const SIDE_IMAGES = [
 function ProfileDetail() {
   const [activeTab, setActiveTab] = useState(PROFILE_CONTENT.zh.sections[0].key)
   const [isEnglishMode, setIsEnglishMode] = useState(false)
+  const modeKey = isEnglishMode ? 'en' : 'zh'
   const currentContent = isEnglishMode ? PROFILE_CONTENT.en : PROFILE_CONTENT.zh
   const { sections, proofLabels } = currentContent
   const baseHref = import.meta.env.BASE_URL
@@ -288,7 +289,7 @@ function ProfileDetail() {
             alt="陈思羽"
             className="profile-avatar"
           />
-          <div className="profile-intro-content">
+          <div key={modeKey} className="profile-intro-content profile-switch-fade">
             <h2>{currentContent.name}</h2>
             <p className="profile-intro-text">
               <span>{currentContent.introPrimary}</span>
@@ -315,7 +316,7 @@ function ProfileDetail() {
             ))}
           </div>
 
-          <div className="profile-tab-panel">
+          <div key={`${modeKey}-${activeTab}`} className="profile-tab-panel profile-switch-fade">
             <h3>{activeSection.label}</h3>
             <p className="profile-section-intro">{activeSection.intro}</p>
             <div className="profile-entry-list">
