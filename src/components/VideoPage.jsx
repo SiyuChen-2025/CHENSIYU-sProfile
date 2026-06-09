@@ -27,7 +27,7 @@ function VideoPage() {
       </button>
 
       <div className="video-info">
-        <h1 className="video-title">工装密码 | WorkwareCode</h1>
+        <h1 className="video-title">FashionFLOW</h1>
       
       <div className="video-container">
         <video 
@@ -37,7 +37,7 @@ function VideoPage() {
           width="100%"
           style={{ borderRadius: '12px' }}
         >
-          <source src={`${import.meta.env.BASE_URL}workwarecodemethods.mp4`} type="video/mp4" />
+          <source src={`${import.meta.env.BASE_URL}projects/FashionFLOW/FashionFLOW1.0.mp4`} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>

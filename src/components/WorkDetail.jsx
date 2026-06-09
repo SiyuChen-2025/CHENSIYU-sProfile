@@ -10,7 +10,8 @@ function WorkDetail() {
 
   const isVisualCollection = work?.id === 8 || work?.id === 9
   const visualImages = work?.galleryImages?.length ? work.galleryImages : work ? [work.coverImage] : []
-  const isWorkwareCode = work?.slug === 'workwarecode' || work?.id === 2
+  const projectGalleryImages = !isVisualCollection && work?.galleryImages?.length ? work.galleryImages : []
+  const isFashionFlow = work?.slug === 'fashionflow' || work?.id === 2
 
   useEffect(() => {
     const handleEsc = (e) => {
@@ -84,15 +85,34 @@ function WorkDetail() {
             <section className="detail-gallery-card">
               <h2>成果展示</h2>
 
-              {isWorkwareCode ? (
+              {projectGalleryImages.length ? (
+                <div className="detail-project-gallery">
+                  {projectGalleryImages.map((image, index) => (
+                    <figure key={`${image}-${index}`} className="detail-project-gallery-item">
+                      <img
+                        src={image}
+                        alt={`${work.title} 成果图 ${index + 1}`}
+                        loading="lazy"
+                        decoding="async"
+                        onError={(e) => {
+                          e.currentTarget.onerror = null
+                          e.currentTarget.src = work.coverImage
+                        }}
+                      />
+                    </figure>
+                  ))}
+                </div>
+              ) : null}
+
+              {isFashionFlow ? (
                 <div className="detail-video-wrap">
                   <video controls playsInline preload="metadata">
-                    <source src={`${import.meta.env.BASE_URL}workwarecodemethods.mp4`} type="video/mp4" />
+                    <source src={`${import.meta.env.BASE_URL}projects/FashionFLOW/FashionFLOW1.0.mp4`} type="video/mp4" />
                   </video>
                 </div>
-              ) : (
-                <p>{work.outcome}</p>
-              )}
+              ) : null}
+
+              {work.outcome ? <p className="detail-outcome-text">{work.outcome}</p> : null}
             </section>
           </>
         )}

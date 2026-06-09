@@ -14,7 +14,7 @@
     - `ProfileDetail.jsx`：个人简介/简历相关的页面（多 Tab 内容）。
     - `VideoPage.jsx`：视频页组件（当前路由不一定启用，但保留为扩展）。
 - `public/`
-  - 静态资源：头像图片、项目视频（例如 `workwarecodemethods.mp4`）、以及项目画廊用到的图片文件。
+  - 静态资源：头像图片、项目视频（例如 `projects/FashionFLOW/FashionFLOW1.0.mp4`）、以及项目画廊用到的图片文件。
 - `.github/workflows/`
   - `deploy-pages.yml`：GitHub Pages 部署工作流（启用 GitHub Actions 自动构建与发布）。
 
@@ -76,8 +76,8 @@
 ### B. 成果展示渲染逻辑
 控制文件：`src/components/WorkDetail.jsx`
 
-- `work.slug === 'workwarecode'` 或 `work.id === 2`
-  - 显示视频占位（`public/workwarecodemethods.mp4`）
+- `work.slug === 'fashionflow'` 或 `work.id === 2`
+  - 显示视频占位（`public/projects/FashionFLOW/FashionFLOW1.0.mp4`）
 - `work.id === 8` 或 `work.id === 9`（书法/摄影合集）
   - 显示图片画廊（使用 `work.galleryImages`；若为空则退回 `work.coverImage`）
 - 其它普通项目
