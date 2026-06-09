@@ -18,18 +18,18 @@ const PROFILE_CONTENT = {
       {
         key: 'education',
         label: '教育经历',
-        intro: '在本科期间，我认真学习了服装设计与工程专业的相关课程，课程体系覆盖工科大类数理化课程，政治思想类课程，结构工艺类基础课程，营销类课程以及新兴技术融合创新设计的交叉类课程。除了认真完成本专业的课程外，我还积极选修了数据库系统及应用，虚拟显示技术等其他专业的课程并取得了不错的成绩',
+        intro: '自 2023 年进入东华大学服装与艺术设计学院以来，我系统学习了服装设计与工程专业课程，训练内容覆盖数学基础、服装材料与人体工效、结构工艺、数字化设计、科研方法、市场营销以及人工智能辅助设计等方向，并在跨学科课程学习中不断强化研究与设计并重的能力结构。',
         items: [
           {
             title: '东华大学 · 服装与艺术设计学院 · 服装设计与工程',
             period: '2023.09 - 至今',
             details: [
               {
-                text: '专业排名：1/85                                    GPA：4.14/5.0',
+                text: '专业排名：1/85，GPA：4.15/5.0',
                 proof: { label: 'certificate', href: 'ranking-proof.pdf' },
               },
               {
-                text: '主修课程：服装人工智能导论（99）、虚拟显示技术（96）、服装CAD及虚拟仿真（93）、科学研究方法（96）、计算思维与人工智能 Python（91）、数据库系统及应用（91）、女装结构设计（92）、成衣工艺学（93）等',
+                text: '主修课程：高等数学（92）、概率论（91）、数据库系统及应用（91）、服装人工智能导论（99）、服装材料学（90）、服装人体工效学（90）、服装CAD及虚拟仿真（93）、服装设计思维与方法、科学研究方法（96）、女装结构设计（92）、服装立裁、计算思维与人工智能（Python）（91）、服装市场营销与市场调研等。',
                 proof: { label: 'transcript', href: 'transcript.pdf' },
               },
               {
@@ -43,24 +43,25 @@ const PROFILE_CONTENT = {
       {
         key: 'research',
         label: '科研经历',
-        intro: '本科期间，作为负责人我主要参与了两个科研项目，分别是基于扩散模型的面料贴图生成项目以及工装智能设计平台搭建项目。（成果的具体内容可在工作&经历板块详细查看）',
+        intro: '本科阶段，我持续将设计学习与科研实践结合，重点围绕生成式模型在服装设计场景中的应用，以及 AI 辅助设计平台的原型构建与落地路径展开探索。',
         items: [
           {
-            title: '“织创：基于Stable Diffusion的3D织物智能生成研究”',
+            title: '“织创：基于 Stable Diffusion 的高清织物智能生成研究”',
             period: '2024.11 - 2025.11',
             details: [
-              '大学生创新创业项目负责人，负责前期探索、实验室数据采集、模型训练与测试、论文正文撰写',
-              '阶段成果：CVM会议学生一作；大创省级立项；相关发明专利申请中',
-              '能力沉淀：熟悉扩散模型研究现状与训练实验流程，提升英文论文写作与数据分析可视化能力',
+              '项目角色：大学生创新创业项目负责人。',
+              '负责工作：完成前期探索与调研、部分实验室数据采集、模型训练与测试，以及论文正文撰写。',
+              '成果收获：CVM 会议接收（CCF-C, 学生一作）；大创省级立项；相关发明专利申请中。',
+              '个人收获：参与显微镜高清织物结构采集与参数标签配对整理，尝试基于织物参数进行物理属性调整；对生成式模型研究现状形成较完整认知，熟悉打标、训练、测试的完整实验流程；提升了英文论文写作、数据处理分析与可视化表达能力。',
             ],
           },
           {
-            title: '企业项目“工装智能设计平台”',
+            title: '“工装智能设计平台”与 “FashionFlow” 服装智能设计平台搭建',
             period: '2025.10 - 至今',
             details: [
-              '负责设计软件界面优化，并集成面料生成功能',
-              '阶段成果：搭建“工装智能设计平台”；“LLM驱动的智能工装设计方法”作品集内容转化；相关论文撰写中',
-              '能力沉淀：掌握前后端协作流程，实践Vibe Coding与VS Code / JupyterLab / Figma协同开发',
+              '负责工作：进行平台原型设计、整合与界面优化，并基于 d2g 平台集成样片专业化改造、面料生成、纹样生成等功能。',
+              '成果收获：完成作品集转化；相关论文撰写中。',
+              '个人收获：熟悉 AI 辅助设计原型搭建方式，接触较完整的前后端开发流程，并熟悉 VS Code、JupyterLab、Figma 等平台与软件协同操作。',
             ],
           },
         ],
@@ -68,7 +69,7 @@ const PROFILE_CONTENT = {
       {
         key: 'awards',
         label: '获奖与实践经历',
-        intro: '在校期间，我积极参与学科竞赛、社会实践活动、暑期课程与实习，期待在各个领域的探索中获得多方面的成长。',
+        intro: '除课堂与科研训练外，我也持续通过竞赛、社会实践、暑期课程以及个人作品开发扩展自己的观察视角与项目执行能力。',
         items: [
           {
             title: '主要奖项与荣誉',
@@ -81,12 +82,12 @@ const PROFILE_CONTENT = {
             ],
           },
           {
-            title: '实践与实习',
-            period: '2024 - 2025',
+            title: '实践与项目经历',
+            period: '2024 - 至今',
             details: [
-              '“艺术与我，锦绣丝路”东华大学暑期社会实践优秀项目：作为钢琴和合唱老师参与支教与文化传播活动',
-              '上海交通大学ICCI暑期课程：探索生成式人工智能在文创产业的应用',
-              '上海室内设计工作室实习：参与“逸装AI”小程序模型测试与训练优化',
+              '2024.07 “艺术与我，锦绣丝路”东华大学暑期社会实践优秀项目：在校艺术团中担任钢琴和合唱老师，前往云南盐津进行为期一周的支教。',
+              '2025.07 上海交通大学 ICCI 暑期课程《探索生成式人工智能及其在文化创意产业的应用》：完成暑期实践课程，制作 AIGC 影视作品《汴京一梦》，并获得中国好创意国赛三等奖。',
+              '2026.01 - 至今 个人作品集及个人作品网站制作开发：围绕 AIGC 工具对服装设计与制造工作流的影响、AI 辅助睡眠健康设计、面向 BFRB 群体的交互矫正方法等主题持续展开内容策划与原型开发，基本契合研究生阶段拟深入研究的方向。',
             ],
           },
         ],
@@ -94,25 +95,35 @@ const PROFILE_CONTENT = {
       {
         key: 'self',
         label: '自我评价',
-        intro: '我十分希望能够在研究生阶段进一步深耕“交互设计 + AI辅助设计”学科，并重点关注大健康、心理健康与时尚服装领域。',
+        intro: '我希望在研究生阶段继续主修交互设计与 AI 辅助设计，将设计研究与技术实践结合起来，进一步深入大健康、心理健康、时尚与纺织服装等议题。',
         items: [
           {
             title: '核心优势',
             details: [
-              '自学能力强，心态成熟坚韧，具有长期稳定的自驱力与持续进步意识',
-              '设计视角兼具人文关怀与实用价值，对相关工作有较高的价值需求',
-              '工作风格兼具设计与技术视角，能够在创意表达与工程落地之间建立有效连接',
-              '团队协作意识强，具备组织协调与跨角色沟通能力',
+              '学习能力较强，具备良好的自我驱动力，能够主动探索并持续学习新事物。',
+              '心态乐观稳定，具备较强的团队协作与领导能力，能够在项目中承担推进与协调职责。',
+              '擅长从多维视角观察生活中的设计与交互问题，能够在用户需求、设计表达与技术实现之间建立联系。',
+              '乐于尝试新的研究方法与创作工具，对跨学科议题保持长期兴趣与投入。',
             ],
           },
           {
-            title: '工具与技能',
+            title: '语言与学术能力',
             details: [
-              '设计与创作：Figma、PS/AI/PR、Blender、AIGC工具链',
-              '互联网开发与实验：VS Code、Vibe Coding、Python、Arduino、Unity',
-              '服装CAD软件：Vstitcher、至尊宝纺、CLO 3D 等相关软件',
+              '具有较强的英语阅读能力（雅思阅读 8.0）。',
+              '具有良好的英语口语能力（雅思口语 6.5）。',
+              '具有较为丰富的学术英语写作经验，能够支持英文论文阅读、整理与撰写。',
             ],
           },
+          {
+            title: '工具与软件能力',
+            details: [
+              '开发与实验：VS Code、Arduino 简易硬件、Unity、JupyterLab。',
+              '设计与创作：Figma、PS/AI/PR、AIGC 生成应用、Blender。',
+              '分析与可视化：GraphPad 绘图及相关数据整理表达。',
+              '服装 CAD 软件：Vstitcher、至尊宝纺、CLO 3D 等相关软件。',
+            ],
+          },
+       
         ],
       },
     ],
@@ -133,22 +144,22 @@ const PROFILE_CONTENT = {
       {
         key: 'education',
         label: 'Education',
-        intro: 'During my undergraduate study, I built a solid foundation in Fashion Design and Engineering through coursework spanning engineering fundamentals, design methods, garment construction, marketing, and interdisciplinary technology-driven innovation.',
+        intro: 'Since entering Donghua University in 2023, I have built a structured academic foundation in Fashion Design and Engineering through coursework spanning mathematics, garment materials and ergonomics, construction and draping, digital design, research methods, marketing, and AI-aided design.',
         items: [
           {
             title: 'Donghua University · College of Fashion and Art Design · Fashion Design and Engineering',
             period: '2023.09 - Present',
             details: [
               {
-                text: 'Program Ranking: 1/85                                    GPA: 4.14/5.0',
+                text: 'Program Ranking: 1/85, GPA: 4.14/5.0',
                 proof: { label: 'certificate', href: 'ranking-proof.pdf' },
               },
               {
-                text: 'Key Courses: Introduction to AI in Fashion (99), Virtual Display Technology (96), Fashion CAD and Virtual Simulation (93), Research Methods (96), Computational Thinking and AI with Python (91), Database Systems and Applications (91), Women’s Pattern Making (92), Garment Technology (93), etc.',
+                text: 'Key Courses: Advanced Mathematics (92), Probability Theory (91), Database Systems and Applications (91), Introduction to AI in Fashion (99), Clothing Materials (90), Clothing Ergonomics (90), Fashion CAD and Virtual Simulation (93), Design Thinking and Methods for Fashion, Research Methods (96), Women’s Pattern Making (92), Draping, Computational Thinking and AI with Python (91), Fashion Marketing and Market Research, etc.',
                 proof: { label: 'transcript', href: 'transcript.pdf' },
               },
               {
-                text: 'English Proficiency: CET-6 573, IELTS 7.0',
+                text: 'English Proficiency: CET-6 (573), IELTS 7.0.',
                 proof: { label: 'certificate', href: 'english-proof.pdf' },
               },
             ],
@@ -158,24 +169,25 @@ const PROFILE_CONTENT = {
       {
         key: 'research',
         label: 'Research',
-        intro: 'As a project lead, I have participated in two major research projects: diffusion-model-based fabric texture generation and intelligent tooling platform development for workwear design.',
+        intro: 'During my undergraduate study, I have combined design training with research practice, focusing on generative-model applications in fashion design and the prototyping of AI-aided design platforms.',
         items: [
           {
-            title: '"Zhichuang: 3D Fabric Intelligent Generation Based on Stable Diffusion"',
+            title: '"Zhichuang: High-Definition Intelligent Fabric Generation Based on Stable Diffusion"',
             period: '2024.11 - 2025.11',
             details: [
-              'Project lead of an undergraduate innovation and entrepreneurship project; responsible for early exploration, lab data collection, model training/testing, and paper writing.',
-              'Outcomes: student first author at CVM conference; provincial-level project approval; patent application in progress.',
-              'Growth: gained full-process understanding of diffusion-model experiments and improved academic writing, analysis, and visualization skills.',
+              'Role: project lead of an undergraduate innovation and entrepreneurship project.',
+              'Responsibilities: early-stage exploration and review, partial lab data collection, model training and testing, and manuscript writing.',
+              'Outcomes: accepted by CVM conference as student first author; approved as a provincial-level innovation project; related invention patent application in progress.',
+              'Learning gains: participated in microscope-based collection of high-definition fabric structures and parameter-label pairing; explored physical attribute adjustment based on fabric parameters; developed a more comprehensive understanding of generative-model research, labeling, training, and testing workflows; strengthened academic writing, data analysis, and visualization skills.',
             ],
           },
           {
-            title: 'Industry Project: "Intelligent Workwear Design Platform"',
+            title: '"Intelligent Workwear Design Platform" and "FashionFlow" Platform Development',
             period: '2025.10 - Present',
             details: [
-              'Responsible for interface optimization and integrating fabric generation capabilities.',
-              'Outcomes: platform prototype delivered; "LLM-driven intelligent workwear design method" portfolio conversion; paper in progress.',
-              'Growth: strengthened full-stack collaboration workflow and practical experience with Vibe Coding, VS Code, JupyterLab, and Figma.',
+              'Responsibilities: designed, integrated, and optimized the platform prototype; based on the d2g platform, participated in professional sample adaptation and the integration of fabric generation and pattern generation features.',
+              'Outcomes: supported portfolio conversion and related paper writing now in progress.',
+              'Learning gains: became familiar with AI-aided design prototyping, gained exposure to a relatively complete front-end and back-end development workflow, and improved collaborative use of VS Code, JupyterLab, and Figma.',
             ],
           },
         ],
@@ -183,7 +195,7 @@ const PROFILE_CONTENT = {
       {
         key: 'awards',
         label: 'Awards & Practice',
-        intro: 'I actively engage in competitions, social practice, summer programs, and internships to build both creative thinking and execution capability.',
+        intro: 'Beyond coursework and research, I continue to expand my perspective and execution ability through competitions, social practice, summer programs, and self-initiated project development.',
         items: [
           {
             title: 'Major Awards & Honors',
@@ -196,12 +208,12 @@ const PROFILE_CONTENT = {
             ],
           },
           {
-            title: 'Practice & Internship',
-            period: '2024 - 2025',
+            title: 'Practice & Projects',
+            period: '2024 - Present',
             details: [
-              'Outstanding Summer Social Practice Project at Donghua University: participated in teaching support and cultural communication as piano and choir instructor.',
-              'Shanghai Jiao Tong University ICCI Summer Program: explored generative AI applications in the creative industry.',
-              'Interior Design Studio Internship: participated in model testing and optimization for the "Yizhuang AI" mini-program.',
+              '2024.07 Outstanding Summer Social Practice Project at Donghua University, "Art and Me, Splendid Silk Road": served as a piano and choir instructor and joined a one-week teaching-support program in Yanjin, Yunnan.',
+              '2025.07 Shanghai Jiao Tong University ICCI Summer Course, "Exploring Generative AI and Its Applications in the Cultural and Creative Industries": completed the practice-based course, produced the AIGC short film "A Dream of Bianjing", and received a national third prize in the China Creative Challenge.',
+              '2026.01 - Present Personal portfolio and portfolio website development: continued to develop projects around the impact of AIGC tools on fashion design and manufacturing workflows, AI-aided sleep-health design, and interactive correction methods for BFRB groups, which closely align with my intended graduate research directions.',
             ],
           },
         ],
@@ -209,23 +221,40 @@ const PROFILE_CONTENT = {
       {
         key: 'self',
         label: 'Self-Evaluation',
-        intro: 'At graduate level, I hope to continue deepening in "Interaction Design + AI-aided Design", with particular focus on healthcare, mental wellness, and fashion domains.',
+        intro: 'For graduate study, I hope to continue focusing on interaction design and AI-aided design, connecting design research with technical practice while exploring healthcare, mental wellness, fashion, and textile-related topics.',
         items: [
           {
             title: 'Core Strengths',
             details: [
-              'Strong self-learning ability, resilient mindset, and stable long-term internal drive.',
-              'A design perspective balancing human-centered care with practical impact.',
-              'A hybrid design-technology workflow that bridges concept creation and engineering implementation.',
-              'Strong teamwork awareness with effective coordination and cross-functional communication skills.',
+              'Strong learning ability and solid self-motivation, with a willingness to actively explore and learn new things.',
+              'Optimistic and emotionally stable mindset, with strong teamwork and leadership capability.',
+              'Able to observe design and interaction problems in everyday life from multiple perspectives and connect user insight, design expression, and technical implementation.',
+              'Open to new research methods and creative tools, with sustained interest in interdisciplinary work.',
             ],
           },
           {
-            title: 'Tools & Skills',
+            title: 'Language & Academic Skills',
             details: [
-              'Design & Creation: Figma, PS/AI/PR, Blender, AIGC toolchain',
-              'Development & Experimentation: VS Code, Vibe Coding, Python, Arduino, Unity',
-              'Fashion CAD: Vstitcher, Zhizunbaofang, CLO 3D, and related software',
+              'Strong English reading ability (IELTS Reading 8.0).',
+              'Good spoken English ability (IELTS Speaking 6.5).',
+              'Relatively rich experience in academic English writing, supporting literature reading, synthesis, and paper development.',
+            ],
+          },
+          {
+            title: 'Tools & Software',
+            details: [
+              'Development & Experimentation: VS Code, Arduino-based hardware prototyping, Unity, and JupyterLab.',
+              'Design & Creation: Figma, PS/AI/PR, AIGC generation tools, and Blender.',
+              'Analysis & Visualization: GraphPad and related data organization and visual expression workflows.',
+              'Fashion CAD: Vstitcher, Zhizunbaofang, CLO 3D, and related software.',
+            ],
+          },
+          {
+            title: 'Interests & Research Plan',
+            details: [
+              'Broad interests including piano (Amateur Level 10 with distinction), calligraphy (Gold Award, comprehensive category, Hangzhou Art Festival 2022), and film.',
+              'At graduate level, I plan to continue studying interaction design and AI-aided design, with strong interest in healthcare, mental wellness, fashion, and textile-apparel fields.',
+              'I hope to combine emerging technologies with user-centered perspectives to produce thoughtful and meaningful design work.',
             ],
           },
         ],

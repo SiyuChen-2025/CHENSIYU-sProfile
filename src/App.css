@@ -780,6 +780,65 @@ body {
   object-fit: cover;
 }
 
+.detail-project-gallery--poster {
+  gap: 1rem;
+}
+
+.detail-project-gallery-item--poster {
+  aspect-ratio: auto;
+  background: transparent;
+}
+
+.detail-project-gallery-item--poster img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.detail-document-gallery {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.detail-document-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.detail-document-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.detail-document-head h3 {
+  margin: 0;
+  font-size: 0.96rem;
+  color: #1f2937;
+}
+
+.detail-document-head a {
+  color: #2563eb;
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+
+.detail-document-frame {
+  width: 100%;
+  height: min(78vh, 960px);
+  border: 0;
+  display: block;
+  background: #f8fafc;
+}
+
 .detail-video-wrap video {
   width: 100%;
   border-radius: 12px;
