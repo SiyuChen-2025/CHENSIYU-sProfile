@@ -2,12 +2,9 @@
 import { Link } from 'react-router-dom'
 import { WORKS } from './data/works'
 
-const SPLASH_ROTATE_MS = 2000
-const SPLASH_PARTICLE_MS = 1320
-/** 与白底遮罩淡出时间对齐：消散过程中首页逐渐透出 */
-const SPLASH_REVEAL_MS = 1580
-const SPLASH_HOLD_MS = SPLASH_ROTATE_MS + SPLASH_REVEAL_MS + 160
-const SPLASH_LABEL = "CHENSIYU's Profile"
+const SPLASH_TEXT_MS = 700
+const SPLASH_REVEAL_DELAY_MS = SPLASH_TEXT_MS + 500
+const SPLASH_HOLD_MS = SPLASH_REVEAL_DELAY_MS + 1000
 
 function App() {
   const worksScrollRef = useRef(null)
@@ -15,8 +12,6 @@ function App() {
   const rafRef = useRef(null)
   const speedRef = useRef(0)
   const splashOverlayRef = useRef(null)
-  const splashTextRef = useRef(null)
-  const splashParticleCanvasRef = useRef(null)
   const [splashHidden, setSplashHidden] = useState(() => sessionStorage.getItem('homeSplashShown') === '1')
   const [splashRevealActive, setSplashRevealActive] = useState(false)
 
@@ -56,167 +51,25 @@ function App() {
   }, [])
 
   useEffect(() => {
-    // 首次打开主页的开场动画（只在第一次生效）
-    // 注意：勿在定时器触发前写入 homeSplashShown。开发环境下 StrictMode 会卸载再挂载，
-    // 若已写入，第二次挂载会立刻隐藏遮罩，导致停留时间始终很短。
     const shown = sessionStorage.getItem('homeSplashShown') === '1'
     if (shown) {
       setSplashHidden(true)
       return
     }
 
-    const holdMs = SPLASH_HOLD_MS
-    const t = window.setTimeout(() => {
+    const revealTimer = window.setTimeout(() => {
+      setSplashRevealActive(true)
+    }, SPLASH_REVEAL_DELAY_MS)
+
+    const holdTimer = window.setTimeout(() => {
       sessionStorage.setItem('homeSplashShown', '1')
       setSplashRevealActive(false)
       setSplashHidden(true)
-    }, holdMs)
-    return () => window.clearTimeout(t)
-  }, [])
-
-  useEffect(() => {
-    if (sessionStorage.getItem('homeSplashShown') === '1') return
-
-    const overlayEl = splashOverlayRef.current
-    const textEl = splashTextRef.current
-    const canvasEl = splashParticleCanvasRef.current
-    if (!overlayEl || !textEl || !canvasEl) return
-
-    let burstTimer = 0
-    let rafId = 0
-
-    const runBurst = () => {
-      const overlayR = overlayEl.getBoundingClientRect()
-      const textR = textEl.getBoundingClientRect()
-      const cs = getComputedStyle(textEl)
-      const angle = Math.PI * 2
-
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
-      const w = Math.max(12, Math.ceil(textR.width))
-      const h = Math.max(12, Math.ceil(textR.height))
-      const off = document.createElement('canvas')
-      off.width = Math.max(1, Math.floor(w * dpr))
-      off.height = Math.max(1, Math.floor(h * dpr))
-      const octx = off.getContext('2d', { willReadFrequently: true })
-      if (!octx) return
-      octx.scale(dpr, dpr)
-      octx.clearRect(0, 0, w, h)
-      octx.save()
-      octx.translate(w / 2, h / 2)
-      octx.rotate(angle)
-      octx.fillStyle = '#1e3a8a'
-      octx.textAlign = 'center'
-      octx.textBaseline = 'middle'
-      octx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`
-      if (cs.letterSpacing && cs.letterSpacing !== 'normal') {
-        octx.letterSpacing = cs.letterSpacing
-      }
-      octx.fillText(SPLASH_LABEL, 0, 0)
-      octx.restore()
-
-      const img = octx.getImageData(0, 0, off.width, off.height)
-      const step = 3
-      const particles = []
-      const textLeft = textR.left - overlayR.left
-      const textTop = textR.top - overlayR.top
-      const speedScale = Math.min(1.4, overlayR.width / 460)
-
-      for (let py = 0; py < off.height; py += step) {
-        for (let px = 0; px < off.width; px += step) {
-          const idx = (py * off.width + px) * 4
-          const a = img.data[idx + 3]
-          if (a < 70) continue
-          const r = img.data[idx]
-          const g = img.data[idx + 1]
-          const b = img.data[idx + 2]
-          const lx = px / dpr
-          const ly = py / dpr
-          const ox = textLeft + (lx / w) * textR.width
-          const oy = textTop + (ly / h) * textR.height
-          const ang = Math.random() * Math.PI * 2
-          const sp = (0.11 + Math.random() * 0.22) * speedScale
-          particles.push({
-            x: ox,
-            y: oy,
-            vx: Math.cos(ang) * sp,
-            vy: Math.sin(ang) * sp,
-            r,
-            g,
-            b,
-            a0: a / 255,
-            life: 1,
-          })
-        }
-      }
-
-      const cap = 3000
-      while (particles.length > cap) {
-        particles.splice((Math.random() * particles.length) | 0, 1)
-      }
-
-      textEl.classList.add('home-splash-text--hidden')
-      canvasEl.classList.add('home-splash-particle-canvas--active')
-
-      const ctx = canvasEl.getContext('2d')
-      if (!ctx) return
-      const ow = overlayR.width
-      const oh = overlayR.height
-      canvasEl.width = Math.max(1, Math.floor(ow * dpr))
-      canvasEl.height = Math.max(1, Math.floor(oh * dpr))
-      canvasEl.style.width = `${ow}px`
-      canvasEl.style.height = `${oh}px`
-      ctx.setTransform(1, 0, 0, 1, 0, 0)
-      ctx.scale(dpr, dpr)
-
-      const t0 = performance.now()
-      let prev = t0
-
-      const stepFrame = (now) => {
-        const elapsed = now - t0
-        if (elapsed > SPLASH_PARTICLE_MS) {
-          return
-        }
-        const dt = Math.min(40, now - prev)
-        prev = now
-        ctx.clearRect(0, 0, ow, oh)
-
-        const drag = Math.pow(0.992, dt / 16)
-        const lifeDecay = 0.00082 * dt
-        const accel = 1 + 0.000085 * dt
-
-        for (const p of particles) {
-          p.vx *= accel
-          p.vy *= accel
-          p.x += p.vx * dt
-          p.y += p.vy * dt
-          p.vx *= drag
-          p.vy *= drag
-          p.life -= lifeDecay
-          if (p.life <= 0) continue
-          const alpha = p.a0 * p.life
-          ctx.fillStyle = `rgba(${p.r},${p.g},${p.b},${Math.min(1, alpha)})`
-          const rad = 0.9 + p.life * 1.7
-          ctx.beginPath()
-          ctx.arc(p.x, p.y, rad, 0, Math.PI * 2)
-          ctx.fill()
-        }
-
-        rafId = requestAnimationFrame(stepFrame)
-      }
-      rafId = requestAnimationFrame(stepFrame)
-    }
-
-    burstTimer = window.setTimeout(() => {
-      runBurst()
-      setSplashRevealActive(true)
-    }, SPLASH_ROTATE_MS)
+    }, SPLASH_HOLD_MS)
 
     return () => {
-      window.clearTimeout(burstTimer)
-      cancelAnimationFrame(rafId)
-      setSplashRevealActive(false)
-      textEl.classList.remove('home-splash-text--hidden')
-      canvasEl.classList.remove('home-splash-particle-canvas--active')
+      window.clearTimeout(revealTimer)
+      window.clearTimeout(holdTimer)
     }
   }, [])
 
@@ -262,15 +115,16 @@ function App() {
       <div
         ref={splashOverlayRef}
         className={`home-splash-overlay${splashHidden ? ' is-hidden' : ''}${splashRevealActive ? ' home-splash-overlay--revealing' : ''}`}
-        style={{ '--splash-rotate-ms': `${SPLASH_ROTATE_MS}ms` }}
         aria-hidden="true"
       >
+        <div className="home-splash-panel home-splash-panel--left" />
+        <div className="home-splash-panel home-splash-panel--right" />
         <div className="home-splash-text-stage">
-          <div className="home-splash-text" ref={splashTextRef}>
+          <div className="home-splash-text">
             CHENSIYU&apos;s Profile
           </div>
+          <div className="home-splash-line" />
         </div>
-        <canvas className="home-splash-particle-canvas" ref={splashParticleCanvasRef} aria-hidden="true" />
       </div>
 
       <header className="site-nav">

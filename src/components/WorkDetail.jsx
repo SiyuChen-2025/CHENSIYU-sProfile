@@ -15,6 +15,7 @@ function WorkDetail() {
   const projectDocuments = !isVisualCollection && work?.documents?.length ? work.documents : []
   const isFashionFlow = work?.slug === 'fashionflow' || work?.id === 2
   const isPosterGallery = work?.slug === 'stablediff-fabric'
+  const isMixedGallery = work?.slug === 'aigc-art'
   const hasSummary = Boolean(work?.summary)
   const hasRoleInfo = Boolean(work?.responsibility || work?.advisor)
   const hasGalleryContent = projectGalleryImages.length > 0 || projectDocuments.length > 0 || isFashionFlow || Boolean(work?.outcome)
@@ -124,12 +125,22 @@ function WorkDetail() {
               <section className="detail-gallery-card">
                 <h2>成果展示</h2>
 
+                {isFashionFlow ? (
+                  <div className="detail-video-wrap">
+                    <video ref={fashionFlowVideoRef} controls autoPlay muted playsInline preload="metadata">
+                      <source src={`${import.meta.env.BASE_URL}projects/FashionFLOW/FashionFLOW1.0.mp4`} type="video/mp4" />
+                    </video>
+                  </div>
+                ) : null}
+
+                {work.outcome ? <p className="detail-outcome-text" dangerouslySetInnerHTML={{ __html: work.outcome }} /> : null}
+
                 {projectGalleryImages.length ? (
-                  <div className={`detail-project-gallery${isPosterGallery ? ' detail-project-gallery--poster' : ''}`}>
+                  <div className={`detail-project-gallery${isPosterGallery ? ' detail-project-gallery--poster' : ''}${isMixedGallery ? ' detail-project-gallery--mixed' : ''}`}>
                     {projectGalleryImages.map((image, index) => (
                       <figure
                         key={`${image}-${index}`}
-                        className={`detail-project-gallery-item${isPosterGallery ? ' detail-project-gallery-item--poster' : ''}`}
+                        className={`detail-project-gallery-item${isPosterGallery ? ' detail-project-gallery-item--poster' : ''}${isMixedGallery ? ' detail-project-gallery-item--mixed' : ''}`}
                       >
                         <img
                           src={image}
@@ -166,15 +177,6 @@ function WorkDetail() {
                   </div>
                 ) : null}
 
-                {isFashionFlow ? (
-                  <div className="detail-video-wrap">
-                    <video ref={fashionFlowVideoRef} controls autoPlay muted playsInline preload="metadata">
-                      <source src={`${import.meta.env.BASE_URL}projects/FashionFLOW/FashionFLOW1.0.mp4`} type="video/mp4" />
-                    </video>
-                  </div>
-                ) : null}
-
-                {work.outcome ? <p className="detail-outcome-text">{work.outcome}</p> : null}
               </section>
             ) : null}
           </>
