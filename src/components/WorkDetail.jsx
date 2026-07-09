@@ -16,9 +16,10 @@ function WorkDetail() {
   const isFashionFlow = work?.slug === 'fashionflow' || work?.id === 2
   const isPosterGallery = work?.slug === 'stablediff-fabric'
   const isMixedGallery = work?.slug === 'aigc-art'
+  const hasVideo = Boolean(work?.video)
   const hasSummary = Boolean(work?.summary)
   const hasRoleInfo = Boolean(work?.responsibility || work?.advisor)
-  const hasGalleryContent = projectGalleryImages.length > 0 || projectDocuments.length > 0 || isFashionFlow || Boolean(work?.outcome)
+  const hasGalleryContent = projectGalleryImages.length > 0 || projectDocuments.length > 0 || isFashionFlow || hasVideo || Boolean(work?.outcome)
 
   useEffect(() => {
     const handleEsc = (e) => {
@@ -29,7 +30,7 @@ function WorkDetail() {
   }, [navigate])
 
   useEffect(() => {
-    if (!isFashionFlow || !fashionFlowVideoRef.current) return
+    if ((!isFashionFlow && !hasVideo) || !fashionFlowVideoRef.current) return
 
     // Most browsers only allow reliable autoplay when the video starts muted.
     const video = fashionFlowVideoRef.current
@@ -37,7 +38,7 @@ function WorkDetail() {
     if (playPromise && typeof playPromise.catch === 'function') {
       playPromise.catch(() => {})
     }
-  }, [isFashionFlow, work?.id])
+  }, [isFashionFlow, hasVideo, work?.id])
 
   const backHome = () => navigate('/')
 
@@ -125,10 +126,10 @@ function WorkDetail() {
               <section className="detail-gallery-card">
                 <h2>成果展示</h2>
 
-                {isFashionFlow ? (
+                {(isFashionFlow || hasVideo) ? (
                   <div className="detail-video-wrap">
                     <video ref={fashionFlowVideoRef} controls autoPlay muted playsInline preload="metadata">
-                      <source src={`${import.meta.env.BASE_URL}projects/FashionFLOW/FashionFLOW1.0.mp4`} type="video/mp4" />
+                      <source src={isFashionFlow ? `${import.meta.env.BASE_URL}projects/FashionFLOW/FashionFLOW1.0.mp4` : work.video} type="video/mp4" />
                     </video>
                   </div>
                 ) : null}

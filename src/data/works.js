@@ -147,6 +147,26 @@ export const WORKS = [
     ],
   },
   {
+    id: 10,
+    slug: 'zaogehome',
+    title: '造个家',
+    subtitle: '面向亲子家庭日常家务参与的互动积木游戏',
+    coverImage: `${import.meta.env.BASE_URL}Cover/zgj-Cover.jpg`,
+    period: '2026.7',
+    tags: ['服务设计', '游戏原型设计', '家庭亲子教育'],
+    video: `${import.meta.env.BASE_URL}zgj/zgj.mp4`,
+    summary: '',
+    responsibility: '',
+    advisor: '',
+    outcome: '',
+    documents: [
+      {
+        title: '造个家项目文档',
+        src: `${import.meta.env.BASE_URL}zgj/（已压缩）造个家.pdf`,
+      },
+    ],
+  },
+  {
     id: 8,
     slug: 'calligraphy-collection',
     title: '书法合集 | Calligraphy Collection',
