@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>陈思羽 Portfolio — Starflow Visual Proposal</title>
+  <style>
+    :root {
+      --paper: #fffdf6;
+      --blue: #3146a3;
+      --blue-deep: #20285a;
+      --blue-soft: #e8ebf8;
+      --blue-line: #c9cdec;
+      --ink: #20285a;
+      --muted: #707493;
+      --yellow: #f7cc58;
+      --coral: #ff806e;
+      --max: 1240px;
+      --side: clamp(22px, 5vw, 72px);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; }
+    button { font: inherit; }
+
+    .proposal-note {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      padding: 10px 14px;
+      border: 1px solid var(--blue);
+      border-radius: 999px;
+      background: rgba(255,253,246,.9);
+      color: var(--blue);
+      font-size: 12px;
+      letter-spacing: .08em;
+      backdrop-filter: blur(8px);
+    }
+
+    .star {
+      display: inline-block;
+      width: var(--s, 24px);
+      aspect-ratio: 1;
+      color: currentColor;
+      background: currentColor;
+      clip-path: polygon(50% 0, 61% 38%, 100% 50%, 61% 62%, 50% 100%, 39% 62%, 0 50%, 39% 38%);
+    }
+    .star.outline {
+      background: transparent;
+      border: 2px solid currentColor;
+      clip-path: none;
+      transform: rotate(45deg) scale(.72);
+      border-radius: 32% 4% 32% 4%;
+    }
+
+    .site-nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 78px;
+      padding: 0 var(--side);
+      background: color-mix(in srgb, var(--paper) 88%, transparent);
+      border-bottom: 1px solid transparent;
+      transition: height .3s ease, border-color .3s ease;
+      backdrop-filter: blur(14px);
+    }
+    .site-nav.compact { height: 62px; border-color: var(--blue-line); }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.02em; }
+    .brand .star { --s: 19px; }
+    .brand small { display: block; margin-top: 2px; color: var(--muted); font-size: 9px; letter-spacing: .13em; font-weight: 600; }
+    .nav-links { display: flex; align-items: center; gap: clamp(18px, 3vw, 44px); font-size: 13px; font-weight: 700; }
+    .nav-links a { position: relative; padding: 8px 0; }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 50%; bottom: 1px;
+      width: 0; height: 2px;
+      background: var(--blue);
+      transform: translateX(-50%);
+      transition: width .25s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-index {
+      display: grid; place-items: center;
+      width: 34px; height: 34px;
+      color: var(--paper); background: var(--blue); border-radius: 50%;
+      font-size: 11px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(330px, .85fr);
+      align-items: center;
+      gap: clamp(34px, 7vw, 110px);
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 130px var(--side) 70px;
+    }
+    .hero-copy { position: relative; z-index: 3; }
+    .eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .16em; }
+    .eyebrow::before { content: ""; width: 48px; height: 2px; background: currentColor; }
+    .hero h1 { margin: 0; color: var(--blue); font-size: clamp(68px, 9vw, 132px); letter-spacing: -.035em; line-height: .95; font-weight: 760; }
+    .hero h1 span { display: block; margin: 20px 0 0 6px; font-size: clamp(17px, 2vw, 28px); letter-spacing: .28em; line-height: 1; }
+    .hero-role { display: flex; flex-wrap: wrap; gap: 8px 18px; max-width: 600px; margin: 40px 0 24px; font-size: clamp(14px, 1.5vw, 18px); font-weight: 800; }
+    .hero-role span { display: flex; align-items: center; gap: 9px; }
+    .hero-role i { width: 6px; height: 6px; background: var(--coral); transform: rotate(45deg); }
+    .hero-intro { max-width: 560px; margin: 0; color: var(--muted); font-size: clamp(14px, 1.15vw, 17px); line-height: 1.9; }
+    .hero-actions { display: flex; gap: 14px; margin-top: 34px; }
+    .button { display: inline-flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 22px; border: 1.5px solid var(--blue); border-radius: 999px; color: var(--blue); font-size: 13px; font-weight: 800; transition: .25s ease; }
+    .button.primary { color: var(--paper); background: var(--blue); }
+    .button:hover { transform: translateY(-3px); }
+    .button .star { --s: 14px; }
+
+    .portrait-stage { position: relative; min-height: 570px; display: grid; place-items: center; }
+    .portrait-shape {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 420px);
+      aspect-ratio: .78;
+      overflow: hidden;
+      border: 2px solid var(--blue);
+      border-radius: 48% 48% 20px 20px;
+      background: var(--blue-soft);
+    }
+    .portrait-shape img { height: 100%; object-fit: cover; filter: saturate(.82) contrast(1.03); }
+    .portrait-shape::after { content: ""; position: absolute; inset: auto 0 0; height: 16%; background: var(--blue); mix-blend-mode: color; }
+    .portrait-label { position: absolute; z-index: 4; right: -18px; bottom: 82px; padding: 13px 18px; color: var(--paper); background: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .12em; transform: rotate(-4deg); }
+    .hero-star-a { position: absolute; z-index: 4; top: 11%; right: 2%; color: var(--yellow); --s: 80px; animation: breathe 4s ease-in-out infinite; }
+    .hero-star-b { position: absolute; z-index: 4; bottom: 8%; left: -3%; color: var(--coral); --s: 34px; animation: breathe 3.4s .4s ease-in-out infinite; }
+    .hero-orbit { position: absolute; inset: 2% -22% 4% -18%; border: 2px solid var(--blue); border-radius: 52% 48% 58% 42%; transform: rotate(-13deg); }
+    .hero-orbit::after { content: ""; position: absolute; right: 11%; bottom: 1%; width: 14px; height: 14px; background: var(--blue); border-radius: 50%; }
+    @keyframes breathe { 50% { transform: rotate(8deg) scale(1.12); } }
+
+    .marquee {
+      overflow: hidden;
+      border-block: 1px solid var(--blue);
+      background: var(--blue);
+      color: var(--paper);
+    }
+    .marquee-track { display: flex; width: max-content; padding: 13px 0; animation: marquee 24s linear infinite; }
+    .marquee span { display: flex; align-items: center; gap: 24px; padding-right: 24px; font-size: 12px; font-weight: 800; letter-spacing: .15em; white-space: nowrap; }
+    .marquee .star { --s: 13px; color: var(--yellow); }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    .section { max-width: var(--max); margin: 0 auto; padding: 120px var(--side); }
+    .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 25px; margin-bottom: 50px; }
+    .section-kicker { display: flex; align-items: center; gap: 10px; color: var(--blue); font-size: 11px; font-weight: 900; letter-spacing: .14em; }
+    .section-kicker .star { --s: 16px; }
+    .section h2 { margin: 12px 0 0; color: var(--blue); font-size: clamp(45px, 7vw, 92px); letter-spacing: -.075em; line-height: .94; }
+    .section-head p { max-width: 360px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.8; }
+
+    .work-strip { display: grid; grid-template-columns: 1.38fr .86fr .86fr; gap: 18px; }
+    .work-card { position: relative; min-width: 0; border: 1.5px solid var(--blue); background: var(--paper); overflow: hidden; }
+    .work-card:first-child { border-radius: 0 88px 0 0; }
+    .work-card:nth-child(2) { border-radius: 0 0 0 58px; }
+    .work-card:nth-child(3) { border-radius: 58px 0 0 0; }
+    .work-card-image { position: relative; aspect-ratio: 1.2; overflow: hidden; border-bottom: 1.5px solid var(--blue); background: var(--blue-soft); }
+    .work-card:first-child .work-card-image { aspect-ratio: 1.45; }
+    .work-card-image img { height: 100%; object-fit: cover; transition: transform .65s cubic-bezier(.2,.8,.2,1); }
+    .work-card:hover img { transform: scale(1.035); }
+    .work-no { position: absolute; top: 14px; left: 14px; z-index: 2; display: grid; place-items: center; width: 42px; height: 42px; color: var(--paper); background: var(--blue); border-radius: 50%; font-size: 11px; font-weight: 900; }
+    .work-card-body { min-height: 160px; padding: 24px; }
+    .work-card h3 { margin: 0 0 9px; color: var(--blue); font-size: clamp(20px, 2vw, 30px); letter-spacing: -.04em; }
+    .work-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; }
+    .tags span { padding: 6px 9px; border: 1px solid var(--blue-line); border-radius: 999px; color: var(--blue); font-size: 10px; font-weight: 700; }
+    .work-arrow { position: absolute; right: 18px; bottom: 19px; color: var(--blue); font-size: 22px; transition: transform .25s ease; }
+    .work-card:hover .work-arrow { transform: translate(4px,-4px); }
+
+    /* 项目经历：用一条连续轨迹串联多个项目 */
+    .project-flow { position: relative; padding: 40px 0 20px; }
+    .project-flow-line { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    .project-flow-line svg { width: 100%; height: 100%; overflow: visible; }
+    .project-flow-line path { fill: none; stroke: var(--blue); stroke-width: 2; stroke-linecap: round; }
+    .project-flow-list { position: relative; z-index: 1; display: grid; gap: 80px; }
+    .flow-project { display: grid; grid-template-columns: 74px minmax(0, 1fr) minmax(260px, .72fr); gap: 34px; align-items: center; }
+    .flow-project:nth-child(even) { grid-template-columns: minmax(260px, .72fr) minmax(0, 1fr) 74px; }
+    .flow-project:nth-child(even) .flow-node { grid-column: 3; grid-row: 1; }
+    .flow-project:nth-child(even) .flow-image { grid-column: 2; grid-row: 1; }
+    .flow-project:nth-child(even) .flow-copy { grid-column: 1; grid-row: 1; text-align: right; }
+    .flow-node { display: grid; place-items: center; width: 58px; height: 58px; color: var(--paper); background: var(--blue); border: 2px solid var(--blue); border-radius: 50%; font-size: 11px; font-weight: 900; }
+    .flow-node .star { --s: 17px; color: var(--yellow); margin-left: -3px; }
+    .flow-image { position: relative; overflow: hidden; border: 1.5px solid var(--blue); background: var(--blue-soft); }
+    .flow-project:nth-child(odd) .flow-image { border-radius: 0 70px 0 0; }
+    .flow-project:nth-child(even) .flow-image { border-radius: 0 0 0 70px; }
+    .flow-image img { aspect-ratio: 1.7; object-fit: cover; transition: transform .5s ease; }
+    .flow-project:hover .flow-image img { transform: scale(1.025); }
+    .flow-copy .flow-year { color: var(--coral); font-size: 10px; font-weight: 900; letter-spacing: .14em; }
+    .flow-copy h3 { margin: 10px 0 10px; color: var(--blue); font-size: clamp(29px, 4vw, 54px); line-height: 1; letter-spacing: -.045em; }
+    .flow-copy p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .flow-copy .tags { margin-top: 18px; }
+    .flow-project:nth-child(even) .tags { justify-content: flex-end; }
+
+    .simple-contact { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; max-width: var(--max); margin: 0 auto; padding: 80px var(--side); border-top: 1px solid var(--blue-line); }
+    .simple-contact h2 { margin: 0 0 12px; color: var(--blue); font-size: clamp(28px, 4vw, 52px); letter-spacing: -.04em; }
+    .simple-contact p { margin: 0; color: var(--muted); font-size: 12px; }
+    .simple-contact a { color: var(--blue); font-size: clamp(15px, 2vw, 24px); font-weight: 800; border-bottom: 1.5px solid var(--blue); }
+
+    .detail-blocks { max-width: var(--max); margin: 0 auto; padding: 110px var(--side) 130px; }
+    .detail-block-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+    .detail-block { padding: clamp(28px, 4vw, 52px); border: 1.5px solid var(--blue); background: var(--paper); }
+    .detail-block--wide { grid-column: 1 / -1; }
+    .detail-block .step { color: var(--coral); font-size: 10px; font-weight: 900; letter-spacing: .14em; }
+    .detail-block h3 { margin: 12px 0 16px; color: var(--blue); font-size: clamp(26px, 3vw, 42px); letter-spacing: -.04em; }
+    .detail-block p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
+    .detail-block img { margin-top: 28px; border: 1px solid var(--blue-line); }
+
+    /* 第三版减法：取消硬边框，用留白、节奏和轻微位移建立层级 */
+    .portrait-shape { border: 0; border-radius: 45% 45% 16% 16%; background: transparent; }
+    .portrait-shape::after, .portrait-label, .hero-orbit { display: none; }
+    .portrait-shape img { object-fit: contain; }
+    .detail-demo { border-top: 0; }
+    .demo-label { padding: 11px; background: var(--blue-soft); color: var(--blue); }
+    .detail-title-row h2 { font-size: clamp(46px, 6vw, 76px); line-height: .92; letter-spacing: -.055em; }
+    .detail-cover figure { border: 0; border-radius: 0; }
+    .cover-badge { border: 0; }
+    .detail-blocks { padding-top: 76px; }
+    .detail-block-grid { gap: 0 48px; }
+    .detail-block { padding: 30px 0; border: 0; border-top: 1px solid var(--blue-line); }
+    .detail-block h3 { margin: 8px 0 11px; font-size: clamp(20px, 2vw, 28px); font-weight: 700; letter-spacing: -.025em; }
+    .detail-block img { border: 0; }
+    .next-project { padding-block: 42px; }
+    .next-project b { font-size: clamp(25px, 3vw, 38px); font-weight: 700; letter-spacing: -.035em; }
+    .next-project .star { --s: 34px; }
+    .flow-image { border: 0; }
+    .project-pager { display: grid; grid-template-columns: 1fr 1fr; max-width: var(--max); margin: 0 auto; border-top: 1px solid var(--blue-line); }
+    .project-pager a { display: flex; align-items: center; justify-content: space-between; min-height: 150px; padding: 34px var(--side); }
+    .project-pager a + a { border-left: 1px solid var(--blue-line); text-align: right; }
+    .project-pager small { display: block; margin-bottom: 8px; color: var(--muted); font-size: 9px; letter-spacing: .14em; }
+    .project-pager b { color: var(--blue); font-size: clamp(24px, 3vw, 36px); font-weight: 700; letter-spacing: -.035em; }
+    .project-pager .star { --s: 27px; color: var(--coral); }
+
+    .profile-concept { position: relative; overflow: hidden; max-width: var(--max); margin: 0 auto; padding: 125px var(--side); }
+    .profile-intro { display: grid; grid-template-columns: .72fr 1.28fr; gap: clamp(45px, 9vw, 130px); align-items: start; }
+    .profile-title { position: sticky; top: 105px; }
+    .profile-title .star { --s: 28px; color: var(--yellow); margin-bottom: 22px; }
+    .profile-title h2 { margin: 0; color: var(--blue); font-size: clamp(48px, 7vw, 86px); line-height: .92; letter-spacing: -.07em; }
+    .profile-title small { display: block; margin-top: 17px; color: var(--muted); font-size: 10px; letter-spacing: .15em; }
+    .profile-lead { margin: 0; color: var(--blue-deep); font-size: clamp(20px, 2.2vw, 31px); line-height: 1.65; letter-spacing: -.025em; }
+    .profile-sublead { margin: 24px 0 0; color: var(--muted); font-size: 14px; line-height: 1.9; }
+    .profile-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+    .mbti-spectrum { position: relative; margin: 90px 0 115px; padding: 50px 0; }
+    .mbti-track { position: absolute; left: 8%; right: 8%; top: 50%; height: 3px; background: linear-gradient(90deg, var(--coral), var(--blue), var(--yellow)); border-radius: 3px; }
+    .mbti-track::before, .mbti-track::after { content: ""; position: absolute; top: 50%; width: 13px; height: 13px; border-radius: 50%; background: var(--paper); border: 3px solid var(--blue); transform: translateY(-50%); }
+    .mbti-track::before { left: -2px; } .mbti-track::after { right: -2px; }
+    .mbti-pair { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr .7fr 1fr; align-items: center; gap: 30px; }
+    .mbti-mark { display: flex; align-items: center; gap: 18px; }
+    .mbti-mark:last-child { flex-direction: row-reverse; text-align: right; }
+    .mbti-mark img { width: clamp(96px, 13vw, 160px); aspect-ratio: 1; object-fit: contain; filter: saturate(.85); }
+    .mbti-mark b { display: block; color: var(--blue); font-size: clamp(25px, 4vw, 50px); letter-spacing: -.04em; }
+    .mbti-mark span { color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .mbti-center { padding: 18px; background: var(--paper); color: var(--blue); text-align: center; font-size: 12px; font-weight: 800; line-height: 1.7; }
+
+    .profile-story { position: relative; margin-left: calc(30% + 20px); }
+    .story-section { display: grid; grid-template-columns: 140px 1fr; gap: 40px; padding: 55px 0; border-top: 1px solid var(--blue-line); }
+    .story-index { color: var(--coral); font-size: 10px; font-weight: 900; letter-spacing: .14em; }
+    .story-section h3 { margin: 0 0 18px; color: var(--blue); font-size: clamp(27px, 3.2vw, 45px); letter-spacing: -.045em; }
+    .story-intro { margin: 0 0 30px; color: var(--muted); font-size: 14px; line-height: 1.9; }
+    .story-entry + .story-entry { margin-top: 38px; }
+    .story-entry-head { display: flex; justify-content: space-between; gap: 25px; margin-bottom: 13px; }
+    .story-entry h4 { margin: 0; color: var(--blue-deep); font-size: 16px; line-height: 1.55; }
+    .story-entry time { flex: 0 0 auto; color: var(--muted); font-size: 11px; }
+    .story-entry ul { margin: 0; padding-left: 1.15em; color: var(--muted); }
+    .story-entry li { margin: 8px 0; padding-left: 4px; font-size: 13px; line-height: 1.85; }
+    .story-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 38px; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+    .about-band { position: relative; overflow: hidden; background: var(--blue); color: var(--paper); }
+    .about-inner { max-width: var(--max); margin: 0 auto; padding: 110px var(--side); }
+    .about-grid { display: grid; grid-template-columns: .9fr 1.4fr; gap: clamp(50px, 9vw, 130px); align-items: center; }
+    .about-big { margin: 0; font-size: clamp(45px, 7vw, 88px); line-height: .96; letter-spacing: -.07em; }
+    .about-big em { color: var(--yellow); font-style: normal; }
+    .about-copy { position: relative; }
+    .about-copy > p { max-width: 590px; margin: 0 0 38px; color: rgba(255,253,246,.75); font-size: clamp(15px, 1.5vw, 19px); line-height: 1.9; }
+    .about-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .about-point { padding-top: 17px; border-top: 1px solid rgba(255,253,246,.35); }
+    .about-point b { display: block; margin-bottom: 8px; font-size: 14px; }
+    .about-point span { color: rgba(255,253,246,.55); font-size: 10px; letter-spacing: .08em; }
+    .about-star { position: absolute; right: -8vw; top: -20px; --s: 180px; color: rgba(255,253,246,.08); }
+
+    .contact { position: relative; min-height: 70vh; display: grid; place-items: center; padding: 120px var(--side); text-align: center; overflow: hidden; }
+    .contact-inner { position: relative; z-index: 2; }
+    .contact .star { --s: 42px; color: var(--yellow); margin-bottom: 25px; }
+    .contact h2 { max-width: 850px; margin: 0 auto 35px; color: var(--blue); font-size: clamp(48px, 8vw, 110px); letter-spacing: -.08em; line-height: .9; }
+    .contact-mail { display: inline-block; padding-bottom: 5px; border-bottom: 2px solid var(--blue); color: var(--blue); font-size: clamp(17px, 2vw, 26px); font-weight: 800; }
+    .contact-meta { display: flex; justify-content: center; gap: 28px; margin-top: 28px; color: var(--muted); font-size: 11px; }
+    .contact-wave { position: absolute; left: -10%; bottom: -40px; width: 120%; height: 210px; border: 3px solid var(--blue); border-color: var(--blue) transparent transparent; border-radius: 50%; transform: rotate(4deg); }
+
+    .detail-demo { background: var(--paper); border-top: 14px solid var(--blue); }
+    .demo-label { display: flex; justify-content: center; padding: 15px; color: var(--paper); background: var(--blue); font-size: 11px; font-weight: 900; letter-spacing: .18em; }
+    .detail-hero { max-width: var(--max); margin: 0 auto; padding: 105px var(--side) 80px; }
+    .back { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 65px; color: var(--blue); font-size: 12px; font-weight: 800; }
+    .detail-title-row { display: grid; grid-template-columns: 1.25fr .75fr; gap: 70px; align-items: end; }
+    .project-number { color: var(--coral); font-size: 11px; font-weight: 900; letter-spacing: .15em; }
+    .detail-title-row h2 { margin: 14px 0 10px; color: var(--blue); font-size: clamp(62px, 10vw, 136px); line-height: .82; letter-spacing: -.09em; }
+    .detail-title-row h2 small { display: block; margin: 26px 0 0 5px; font-size: clamp(16px, 2vw, 25px); line-height: 1.35; letter-spacing: -.02em; }
+    .detail-summary { padding: 25px 0 5px 25px; border-left: 2px solid var(--blue); color: var(--muted); font-size: 14px; line-height: 1.9; }
+    .detail-cover { position: relative; max-width: var(--max); margin: 0 auto; padding: 0 var(--side); }
+    .detail-cover figure { position: relative; margin: 0; overflow: hidden; border: 1.5px solid var(--blue); border-radius: 0 100px 0 0; }
+    .detail-cover img { max-height: 720px; object-fit: cover; }
+    .cover-badge { position: absolute; z-index: 2; right: clamp(35px, 7vw, 95px); top: -38px; display: grid; place-items: center; width: 96px; height: 96px; color: var(--blue); background: var(--yellow); border: 1.5px solid var(--blue); border-radius: 50%; font-size: 11px; font-weight: 900; text-align: center; }
+
+    .timeline { position: relative; max-width: var(--max); margin: 0 auto; padding: 130px var(--side) 150px; }
+    .timeline-line {
+      position: absolute;
+      top: 80px; bottom: 90px; left: 50%;
+      width: 150px;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .timeline-line svg { width: 100%; height: 100%; overflow: visible; }
+    .timeline-line path.base { fill: none; stroke: var(--blue-line); stroke-width: 2; }
+    .timeline-line path.progress { fill: none; stroke: var(--blue); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+    .timeline-item { position: relative; display: grid; grid-template-columns: 1fr 118px 1fr; min-height: 360px; align-items: center; }
+    .timeline-item:nth-child(even) .timeline-content { grid-column: 3; }
+    .timeline-item:nth-child(odd) .timeline-content { grid-column: 1; }
+    .timeline-content { padding: clamp(24px, 4vw, 48px); border: 1.5px solid var(--blue); background: var(--paper); }
+    .timeline-item:nth-child(odd) .timeline-content { border-radius: 0 54px 0 0; }
+    .timeline-item:nth-child(even) .timeline-content { border-radius: 0 0 0 54px; }
+    .timeline-content .step { color: var(--coral); font-size: 10px; font-weight: 900; letter-spacing: .15em; }
+    .timeline-content h3 { margin: 12px 0 14px; color: var(--blue); font-size: clamp(27px, 3.5vw, 46px); letter-spacing: -.05em; }
+    .timeline-content p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
+    .timeline-content .tags { margin-top: 26px; }
+    .timeline-node { position: absolute; left: 50%; top: 50%; z-index: 5; display: grid; place-items: center; width: 50px; height: 50px; color: var(--paper); background: var(--paper); border: 2px solid var(--blue); border-radius: 50%; transform: translate(-50%,-50%); transition: .35s ease; }
+    .timeline-node .star { --s: 21px; color: var(--blue); transform: scale(.55); opacity: .35; transition: .35s ease; }
+    .timeline-item.active .timeline-node { background: var(--blue); }
+    .timeline-item.active .timeline-node .star { color: var(--yellow); opacity: 1; transform: scale(1); }
+    .timeline-media { margin-top: 25px; border: 1px solid var(--blue-line); overflow: hidden; }
+    .timeline-media img { aspect-ratio: 1.55; object-fit: cover; }
+    .next-project { display: flex; align-items: center; justify-content: space-between; max-width: var(--max); margin: 0 auto; padding: 60px var(--side) 75px; border-top: 1.5px solid var(--blue); }
+    .next-project small { display: block; margin-bottom: 8px; color: var(--muted); font-size: 10px; letter-spacing: .16em; }
+    .next-project b { color: var(--blue); font-size: clamp(30px, 5vw, 66px); letter-spacing: -.06em; }
+    .next-project .star { --s: 55px; color: var(--coral); }
+
+    footer { display: flex; justify-content: space-between; gap: 20px; padding: 26px var(--side); color: var(--paper); background: var(--blue); font-size: 10px; letter-spacing: .08em; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 130px; }
+      .portrait-stage { min-height: 490px; }
+      .portrait-shape { max-width: 360px; }
+      .work-strip { grid-template-columns: 1fr 1fr; }
+      .work-card:first-child { grid-column: 1 / -1; }
+      .about-grid { grid-template-columns: 1fr; }
+      .detail-title-row { grid-template-columns: 1fr; gap: 30px; }
+      .profile-intro { grid-template-columns: 1fr; }
+      .profile-title { position: relative; top: 0; }
+      .profile-story { margin-left: 0; }
+      .flow-project, .flow-project:nth-child(even) { grid-template-columns: 58px 1fr; gap: 24px; }
+      .flow-project:nth-child(n) .flow-node { grid-column: 1; grid-row: 1; }
+      .flow-project:nth-child(n) .flow-image { grid-column: 2; grid-row: 1; }
+      .flow-project:nth-child(n) .flow-copy { grid-column: 2; grid-row: 2; text-align: left; }
+      .flow-project:nth-child(even) .tags { justify-content: flex-start; }
+      .project-flow-line { left: -21px; width: 100px; }
+      .timeline-line { left: calc(var(--side) + 25px); width: 80px; }
+      .timeline-item { grid-template-columns: 82px 1fr; min-height: 320px; }
+      .timeline-item:nth-child(n) .timeline-content { grid-column: 2; }
+      .timeline-node { left: 25px; }
+    }
+
+    @media (max-width: 620px) {
+      .site-nav { height: 66px; }
+      .brand small { display: none; }
+      .nav-links { gap: 11px; font-size: 11px; }
+      .nav-index { width: auto; height: auto; color: var(--blue); background: transparent; border-radius: 0; }
+      .hero { min-height: auto; padding-bottom: 80px; }
+      .hero h1 { font-size: clamp(70px, 25vw, 106px); }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .portrait-stage { min-height: 420px; }
+      .portrait-shape { width: 84%; }
+      .section { padding-block: 80px; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+      .work-strip { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; margin-right: calc(var(--side) * -1); padding-right: var(--side); }
+      .work-card { flex: 0 0 82vw; scroll-snap-align: start; }
+      .about-points { grid-template-columns: 1fr; }
+      .contact-meta { flex-direction: column; gap: 8px; }
+      .simple-contact { align-items: flex-start; flex-direction: column; }
+      .detail-block-grid { grid-template-columns: 1fr; }
+      .detail-block--wide { grid-column: auto; }
+      .profile-concept { padding-block: 85px; }
+      .mbti-pair { grid-template-columns: 1fr; }
+      .mbti-track { top: 10%; bottom: 10%; left: 50%; right: auto; width: 3px; height: auto; }
+      .mbti-mark, .mbti-mark:last-child { flex-direction: column; text-align: center; }
+      .mbti-center { max-width: 220px; margin: auto; }
+      .story-section { grid-template-columns: 1fr; gap: 12px; }
+      .story-columns { grid-template-columns: 1fr; }
+      .project-pager { grid-template-columns: 1fr; }
+      .project-pager a + a { border-left: 0; border-top: 1px solid var(--blue-line); }
+      .detail-cover figure { border-radius: 0 48px 0 0; }
+      .cover-badge { width: 72px; height: 72px; top: -30px; }
+      .timeline { padding-top: 90px; }
+      .timeline-line { left: calc(var(--side) + 16px); width: 55px; }
+      .timeline-item { grid-template-columns: 56px 1fr; min-height: 280px; }
+      .timeline-node { left: 16px; width: 38px; height: 38px; }
+      .timeline-node .star { --s: 16px; }
+      .timeline-content { padding: 24px 20px; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="proposal-note">VISUAL PROPOSAL · 01</div>
+
+  <nav class="site-nav" id="nav">
+    <a class="brand" href="#home">
+      <span class="star"></span>
+      <span>陈思羽<small>CHEN SIYU · PORTFOLIO</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="#profile">关于我</a>
+      <a href="#works">项目经历</a>
+      <a class="nav-index" href="#contact">联系我</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <div class="eyebrow">HELLO, THIS IS MY CREATIVE UNIVERSE</div>
+        <h1>陈思羽<span>CHEN SIYU</span></h1>
+        <div class="hero-role">
+          <span><i></i>人机交互</span>
+          <span><i></i>AI 辅助设计</span>
+          <span><i></i>服务设计</span>
+        </div>
+        <p class="hero-intro">热爱旅行、阅读、影音和捣鼓一些奇怪的设计与技术。这里记录我的项目、观察，以及那些从一个小念头逐渐长成的作品。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#works"><span class="star"></span>查看作品</a>
+          <a class="button" href="#profile">认识我 ↗</a>
+        </div>
+      </div>
+
+      <div class="portrait-stage">
+        <div class="hero-orbit"></div>
+        <span class="star hero-star-a"></span>
+        <span class="star hero-star-b"></span>
+        <div class="portrait-shape"><img src="public/avatar.png" alt="陈思羽头像" /></div>
+        <div class="portrait-label">DESIGN · TECH · HUMANITY</div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span><i class="star"></i>HUMAN-COMPUTER INTERACTION <i class="star"></i>AI-AIDED DESIGN <i class="star"></i>SERVICE DESIGN <i class="star"></i>KEEP CURIOUS</span>
+        <span><i class="star"></i>HUMAN-COMPUTER INTERACTION <i class="star"></i>AI-AIDED DESIGN <i class="star"></i>SERVICE DESIGN <i class="star"></i>KEEP CURIOUS</span>
+      </div>
+    </div>
+
+    <section class="section" id="works">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker"><span class="star"></span>SELECTED WORKS · 2025—2026</div>
+          <h2>作品与经历</h2>
+        </div>
+        <p>让每个项目成为轨迹上的一颗节点。封面、编号与类型共同构成清晰的浏览节奏。</p>
+      </div>
+
+      <div class="project-flow">
+        <div class="project-flow-line" aria-hidden="true">
+          <svg viewBox="0 0 1100 1250" preserveAspectRatio="none"><path d="M38 40 C180 120,30 280,120 360 S1040 410,1010 600 S900 790,720 785 S80 780,70 1010 S220 1190,420 1210" /></svg>
+        </div>
+        <div class="project-flow-list">
+          <article class="flow-project">
+            <div class="flow-node"><span class="star"></span></div>
+            <div class="flow-image"><img src="public/Cover/sleepyegg-cover.jpg" alt="SleepyEGG" /></div>
+            <div class="flow-copy"><span class="flow-year">01 · 2025—2026</span><h3>SleepyEGG</h3><p>一款为焦虑型失眠者设计的 AI 冥想睡眠伴侣。</p><div class="tags"><span>人机交互</span><span>AI Agent</span><span>服务设计</span></div></div>
+          </article>
+          <article class="flow-project">
+            <div class="flow-node"><span class="star"></span></div>
+            <div class="flow-image"><img src="public/Cover/FashionFLOW-.jpg" alt="FashionFLOW" /></div>
+            <div class="flow-copy"><span class="flow-year">02 · 2025—至今</span><h3>FashionFLOW</h3><p>集成多智能体协作的智能服装模拟仿真平台。</p><div class="tags"><span>AIGC</span><span>服装 CAD</span></div></div>
+          </article>
+          <article class="flow-project">
+            <div class="flow-node"><span class="star"></span></div>
+            <div class="flow-image"><img src="public/Cover/Canyou-Cover.jpg" alt="Sunny Farm" /></div>
+            <div class="flow-copy"><span class="flow-year">03 · 2026</span><h3>Sunny Farm</h3><p>基于 BFRB 患者心理行为疗法所做的设计思考。</p><div class="tags"><span>心理健康</span><span>行为干预</span></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="profile-concept" id="profile">
+      <div class="profile-intro reveal">
+        <div class="profile-title">
+          <span class="star"></span>
+          <h2>关于我</h2>
+          <small>PROFILE · 2023—2026</small>
+        </div>
+        <div>
+          <p class="profile-lead">Hello，谢谢您的来访。这里记录了我从 2023 到 2026 年间，在学习、科研、实践与个人创作中的探索轨迹。</p>
+          <p class="profile-sublead">自进入东华大学服装与艺术设计学院以来，我持续尝试把服装设计与工程、交互设计和 AI 辅助设计连接起来，并希望在研究生阶段进一步深入大健康、心理健康、时尚与纺织服装等议题。</p>
+          <div class="profile-actions"><a class="button primary" href="public/resume.pdf">下载简历</a><a class="button" href="public/transcript.pdf">查看成绩单 ↗</a></div>
+        </div>
+      </div>
+
+      <div class="mbti-spectrum reveal">
+        <div class="mbti-track"></div>
+        <div class="mbti-pair">
+          <div class="mbti-mark"><img src="public/INFP.png" alt="INFP 标识" /><div><b>INFP</b><span>感受 · 共情 · 想象力<br />创作时的我</span></div></div>
+          <div class="mbti-center">理性与感性并存<br />在结构中保留想象</div>
+          <div class="mbti-mark"><img src="public/INTJ.png" alt="INTJ 标识" /><div><b>INTJ</b><span>规划 · 分析 · 执行力<br />研究时的我</span></div></div>
+        </div>
+      </div>
+
+      <div class="profile-story">
+        <section class="story-section reveal">
+          <div class="story-index">01 · EDUCATION</div>
+          <div>
+            <h3>教育经历</h3>
+            <p class="story-intro">自 2023 年进入东华大学服装与艺术设计学院以来，我系统学习了服装设计与工程专业课程，训练内容覆盖数学基础、服装材料与人体工效、结构工艺、数字化设计、科研方法、市场营销以及人工智能辅助设计等方向，并在跨学科课程学习中不断强化研究与设计并重的能力结构。</p>
+            <article class="story-entry">
+              <div class="story-entry-head"><h4>东华大学 · 服装与艺术设计学院 · 服装设计与工程</h4><time>2023.09 — 至今</time></div>
+              <ul>
+                <li>专业排名：1/85，GPA：4.15/5.0。</li>
+                <li>主修课程：高等数学（92）、概率论（91）、数据库系统及应用（91）、服装人工智能导论（99）、服装材料学（90）、服装人体工效学（90）、服装 CAD 及虚拟仿真（93）、服装设计思维与方法、科学研究方法（96）、女装结构设计（92）、服装立裁、计算思维与人工智能（Python）（91）、服装市场营销与市场调研等。</li>
+                <li>英语：CET-6 573，雅思 7.0；雅思阅读 8.0，口语 6.5。</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="story-section reveal">
+          <div class="story-index">02 · RESEARCH</div>
+          <div>
+            <h3>科研经历</h3>
+            <p class="story-intro">本科阶段，我持续将设计学习与科研实践结合，重点围绕生成式模型在服装设计场景中的应用，以及 AI 辅助设计平台的原型构建与落地路径展开探索。</p>
+            <article class="story-entry">
+              <div class="story-entry-head"><h4>“织创：基于 Stable Diffusion 的高清织物智能生成研究”</h4><time>2024.11 — 2025.11</time></div>
+              <ul><li>大学生创新创业项目负责人，负责前期探索与调研、部分实验室数据采集、模型训练与测试，以及论文正文撰写。</li><li>成果：CVM 会议接收（CCF-C，学生一作）；大创省级立项；相关发明专利申请中。</li><li>参与显微镜高清织物结构采集与参数标签配对整理，尝试基于织物参数进行物理属性调整；熟悉打标、训练、测试的完整实验流程，提升英文论文写作、数据处理分析与可视化表达能力。</li></ul>
+            </article>
+            <article class="story-entry">
+              <div class="story-entry-head"><h4>“工装智能设计平台”与 FashionFLOW 服装智能设计平台搭建</h4><time>2025.10 — 至今</time></div>
+              <ul><li>进行平台原型设计、整合与界面优化，并基于 d2g 平台集成样片专业化改造、面料生成、纹样生成等功能。</li><li>完成作品集转化，相关论文撰写中。</li><li>熟悉 AI 辅助设计原型搭建方式，接触较完整的前后端开发流程，并熟悉 VS Code、JupyterLab、Figma 等平台与软件协同操作。</li></ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="story-section reveal">
+          <div class="story-index">03 · AWARDS</div>
+          <div>
+            <h3>获奖与实践经历</h3>
+            <p class="story-intro">除课堂与科研训练外，我也持续通过竞赛、社会实践、暑期课程以及个人作品开发扩展自己的观察视角与项目执行能力。</p>
+            <div class="story-columns">
+              <article class="story-entry"><div class="story-entry-head"><h4>主要奖项与荣誉</h4><time>2023 — 2025</time></div><ul><li>国家奖学金、东华大学优秀学生、东华大学学业奖学金。</li><li>东华大学高等数学竞赛三等奖。</li><li>第一届“当 AI 遇见非遗”主题活动三等奖。</li><li>第十九届中国好创意 AIGC 专项大赛全国三等奖。</li></ul></article>
+              <article class="story-entry"><div class="story-entry-head"><h4>实践与项目经历</h4><time>2024 — 至今</time></div><ul><li>2024.07 “艺术与我，锦绣丝路”东华大学暑期社会实践优秀项目：在校艺术团中担任钢琴和合唱老师，前往云南盐津进行为期一周的支教。</li><li>2025.07 上海交通大学 ICCI 暑期课程：制作 AIGC 影视作品《汴京一梦》，并获得中国好创意国赛三等奖。</li><li>2026.01 至今：围绕 AIGC 工具对服装设计与制造工作流的影响、AI 辅助睡眠健康设计、面向 BFRB 群体的交互矫正方法等主题持续进行作品集及个人网站开发。</li></ul></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="story-section reveal">
+          <div class="story-index">04 · SELF</div>
+          <div>
+            <h3>自我评价与能力</h3>
+            <p class="story-intro">我希望在研究生阶段继续主修交互设计与 AI 辅助设计，将设计研究与技术实践结合起来，进一步深入大健康、心理健康、时尚与纺织服装等议题。</p>
+            <div class="story-columns">
+              <article class="story-entry"><h4>核心优势</h4><ul><li>学习能力较强，具备良好的自我驱动力，能够主动探索并持续学习新事物。</li><li>心态乐观稳定，具备较强的团队协作与领导能力，能够承担推进与协调职责。</li><li>擅长从多维视角观察设计与交互问题，在用户需求、设计表达与技术实现之间建立联系。</li><li>乐于尝试新的研究方法与创作工具，对跨学科议题保持长期兴趣。</li></ul></article>
+              <article class="story-entry"><h4>工具与软件能力</h4><ul><li>开发与实验：VS Code、Arduino 简易硬件、Unity、JupyterLab。</li><li>设计与创作：Figma、PS / AI / PR、AIGC 生成应用、Blender。</li><li>分析与可视化：GraphPad 绘图及相关数据整理表达。</li><li>服装 CAD：Vstitcher、至尊宝纺、CLO 3D 等。</li></ul></article>
+              <article class="story-entry"><h4>语言与学术能力</h4><ul><li>具有较强的英语阅读能力和良好的英语口语能力。</li><li>具有较为丰富的学术英语写作经验，能够支持英文论文阅读、整理与撰写。</li></ul></article>
+              <article class="story-entry"><h4>兴趣与方向</h4><ul><li>钢琴业余十级优秀、书法综合类金奖，也长期关注电影与视觉叙事。</li><li>希望结合新兴技术与以用户为中心的视角，形成兼具思考与温度的设计作品。</li></ul></article>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="detail-demo" id="project-demo">
+      <div class="demo-label">PROJECT DETAIL PAGE · SIMPLE BLOCK LAYOUT</div>
+      <div class="detail-hero">
+        <a class="back" href="#works">← 返回作品列表</a>
+        <div class="detail-title-row">
+          <div>
+            <div class="project-number">PROJECT 01 / 10</div>
+            <h2>Sleepy<br />EGG<small>一款功能强大的睡眠伴侣</small></h2>
+          </div>
+          <p class="detail-summary">以温柔摇摆的不倒翁形态，通过个性化睡前冥想引导与科学节律闹钟，陪伴焦虑型失眠者安稳入眠、清爽醒来。</p>
+        </div>
+      </div>
+
+      <div class="detail-cover">
+        <div class="cover-badge">2025.12<br />—<br />2026.04</div>
+        <figure><img src="public/Cover/sleepyegg-cover.jpg" alt="SleepyEGG 项目封面" /></figure>
+      </div>
+
+      <div class="detail-blocks">
+        <div class="detail-block-grid">
+          <article class="detail-block"><span class="step">01 · PROJECT PERIOD</span><h3>项目周期</h3><p>2025.12 — 2026.04</p></article>
+          <article class="detail-block"><span class="step">02 · KEYWORDS</span><h3>项目关键词</h3><div class="tags"><span>睡眠产品</span><span>人机交互</span><span>服务设计</span><span>AI Agent</span></div></article>
+          <article class="detail-block detail-block--wide"><span class="step">03 · OVERVIEW</span><h3>项目概述</h3><p>项目详情采用清晰、稳定的方块信息布局。不同内容按正常阅读顺序向下展开，线条流动只属于项目总览，不再干扰单个项目的内容表达。</p></article>
+          <article class="detail-block detail-block--wide"><span class="step">04 · OUTCOME</span><h3>成果展示</h3><p>成果图片以完整宽度展示，保持内容本身的视觉重量。</p><img src="public/projects/sleepyegg/05.jpg" alt="SleepyEGG 成果展示" /></article>
+        </div>
+      </div>
+
+      <nav class="project-pager" aria-label="项目切换">
+        <a href="#project-demo"><span class="star"></span><span><small>PREVIOUS · 10</small><b>摄影合集</b></span></a>
+        <a href="#project-demo"><span><small>NEXT · 02</small><b>FashionFLOW</b></span><span class="star"></span></a>
+      </nav>
+    </section>
+  </main>
+
+    <section class="simple-contact" id="contact">
+      <div><h2>联系我</h2><p>上海 · 东华大学延安路校区 · +86 19857125443</p></div>
+      <a href="mailto:230613202@mail.dhu.edu.cn">230613202@mail.dhu.edu.cn ↗</a>
+    </section>
+  <footer><span>© 2026 CHEN SIYU</span><span>HUMAN-COMPUTER INTERACTION · AI-AIDED DESIGN · SERVICE DESIGN</span></footer>
+
+  <script>
+    const nav = document.querySelector('#nav');
+    function updateScrollEffects() {
+      nav.classList.toggle('compact', window.scrollY > 40);
+    }
+
+    window.addEventListener('scroll', updateScrollEffects, { passive: true });
+    updateScrollEffects();
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+  </script>
+</body>
+</html>

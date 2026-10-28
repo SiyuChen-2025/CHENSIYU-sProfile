@@ -1,0 +1,18 @@
+const ENGLISH_WORKS = {
+  1: { subtitle: 'A powerful companion for better sleep', tags: ['Sleep Product', 'HCI', 'Service Design', 'AI Agent'], summary: 'SleepyEGG is an AI meditation companion designed for people experiencing anxiety-related insomnia. Its gently rocking form combines personalized bedtime meditation with a rhythm-aware alarm.', period: '2025.12 — 2026.04', responsibility: 'Individual project. Responsible for the overall planning, design, execution, and full project workflow.', advisor: 'None' },
+  2: { subtitle: 'A new paradigm for fashion CAD', tags: ['Workwear Design', 'Fashion CAD', 'Digital Fashion', 'AIGC'], summary: 'FashionFLOW is an intelligent fashion simulation platform integrating multi-agent collaboration, pattern generation, fabric and print design, and 3D simulation into a complete workflow.', period: '2025.11 — Present', responsibility: 'Research project. Sole student lead responsible for project coordination and core execution.', advisor: 'Jing Ma · Yun Su' },
+  3: { subtitle: 'A design exploration based on behavioral therapy for BFRB', tags: ['Service & Product Design', 'Mental Health', 'Behavioral Intervention'], summary: 'A dual-perspective interactive game and behavior-support system for children with nail-biting habits and their parents, combining wearable sensing with non-judgmental reminders and emotional support.', period: '2026.01 — 2026.05', responsibility: 'Individual project. Responsible for the overall planning, design, execution, and full project workflow.', advisor: 'None' },
+  4: { subtitle: 'A new business model for fashion rental', tags: ['Business Model', 'Service Experience', 'Sustainable Design'], responsibility: 'Course project. Responsible for concept development, presentation design, and part of the project book.', advisor: 'Kun Song' },
+  5: { title: 'Zhichuang: StableDiff-Fabric', subtitle: 'Exploring the integration of diffusion models and fashion CAD', tags: ['AIGC', 'Diffusion Models', 'Fashion CAD'], responsibility: 'Undergraduate innovation project. Project lead responsible for overall coordination and core execution.', advisor: 'Yun Su · Jing Ma' },
+  6: { title: 'Pattern Reborn', subtitle: 'Restoration and regeneration of intangible-heritage patterns', tags: ['Heritage Innovation', 'AIGC', 'Digital Preservation'], responsibility: 'Course project. Project lead responsible for overall coordination.', advisor: 'Yun Su' },
+  7: { subtitle: 'Experiments in image and moving-image creation', tags: ['AIGC', 'Visual Experiment', 'Creative Workflow', 'Humanistic Expression'], summary: 'After an accident, Professor Charlotte falls into the painted world of Along the River During the Qingming Festival, beginning a fantasy journey across a thousand years.', responsibility: 'Summer practice project. Responsible for scriptwriting, image generation, and part of the video generation.', advisor: 'Meng Zhang' },
+  8: { title: 'Calligraphy Collection', subtitle: 'Writing practice and stylistic exploration', tags: ['Calligraphy', 'Visual Practice', 'Personal Project'], period: 'Ongoing' },
+  9: { title: 'Photography Collection', subtitle: 'Everyday and travel photography', tags: ['Photography', 'Visual Narrative', 'Image Editing'], period: 'Ongoing' },
+  10: { title: 'Build a Home', subtitle: 'An interactive block game encouraging family participation in household tasks', tags: ['Service Design', 'Game Prototyping', 'Family Education'] },
+}
+
+export function localizeWork(work, language) {
+  if (language !== 'en') return work
+  const translation = ENGLISH_WORKS[work.id] || {}
+  return { ...work, ...translation }
+}

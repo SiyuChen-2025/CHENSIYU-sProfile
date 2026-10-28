@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import SiteHeader from './SiteHeader'
+import useLanguage from '../hooks/useLanguage'
 
 const PROFILE_CONTENT = {
   zh: {
@@ -21,7 +22,7 @@ const PROFILE_CONTENT = {
         intro: '自 2023 年进入东华大学服装与艺术设计学院以来，我系统学习了服装设计与工程专业课程，训练内容覆盖数学基础、服装材料与人体工效、结构工艺、数字化设计、科研方法、市场营销以及人工智能辅助设计等方向，并在跨学科课程学习中不断强化研究与设计并重的能力结构。',
         items: [
           {
-            title: '东华大学 · 服装与艺术设计学院 · 服装设计与工程',
+            title: '东华大学 · 服装设计与工程',
             period: '2023.09 - 至今',
             details: [
               {
@@ -37,6 +38,11 @@ const PROFILE_CONTENT = {
                 proof: { label: 'certificate', href: 'english-proof.pdf' },
               },
             ],
+          },
+          {
+            title: '同济大学 · 智能交互与机器人设计',
+            period: '',
+            details: [],
           },
         ],
       },
@@ -147,7 +153,7 @@ const PROFILE_CONTENT = {
         intro: 'Since entering Donghua University in 2023, I have built a structured academic foundation in Fashion Design and Engineering through coursework spanning mathematics, garment materials and ergonomics, construction and draping, digital design, research methods, marketing, and AI-aided design.',
         items: [
           {
-            title: 'Donghua University · College of Fashion and Art Design · Fashion Design and Engineering',
+            title: 'Donghua University · Fashion Design and Engineering',
             period: '2023.09 - Present',
             details: [
               {
@@ -163,6 +169,11 @@ const PROFILE_CONTENT = {
                 proof: { label: 'certificate', href: 'english-proof.pdf' },
               },
             ],
+          },
+          {
+            title: 'Tongji University · Intelligent Interaction and Robot Design',
+            period: '',
+            details: [],
           },
         ],
       },
@@ -263,14 +274,9 @@ const PROFILE_CONTENT = {
   },
 }
 
-const SIDE_IMAGES = [
-  { src: 'INFP.png', alt: 'INFP', className: 'profile-side-image profile-side-image-left' },
-  { src: 'INTJ.png', alt: 'INTJ', className: 'profile-side-image profile-side-image-right' },
-]
-
 function ProfileDetail() {
   const [activeTab, setActiveTab] = useState(PROFILE_CONTENT.zh.sections[0].key)
-  const [isEnglishMode, setIsEnglishMode] = useState(false)
+  const { language, setLanguage, isEnglish: isEnglishMode } = useLanguage()
   const modeKey = isEnglishMode ? 'en' : 'zh'
   const currentContent = isEnglishMode ? PROFILE_CONTENT.en : PROFILE_CONTENT.zh
   const { sections, proofLabels } = currentContent
@@ -285,31 +291,8 @@ function ProfileDetail() {
   const getProofLabel = (labelKey) => proofLabels[labelKey] ?? labelKey
 
   return (
-    <div className="profile-page">
-      <header className="profile-header">
-        <div className="profile-header-inner">
-          <Link to="/" className="profile-back-button">{currentContent.backHome}</Link>
-          <div className="profile-header-actions">
-            <button
-              type="button"
-              className="profile-mode-button"
-              onClick={() => setIsEnglishMode((value) => !value)}
-            >
-              {currentContent.modeButton}
-            </button>
-            <h1>{currentContent.pageTitle}</h1>
-          </div>
-        </div>
-      </header>
-
-      {SIDE_IMAGES.map((item) => (
-        <img
-          key={item.src}
-          src={`${baseHref}${item.src}`}
-          alt={item.alt}
-          className={item.className}
-        />
-      ))}
+    <div className="page-shell profile-page">
+      <SiteHeader language={language} setLanguage={setLanguage} />
 
       <main className="profile-main">
         <section className="profile-intro-card">
@@ -329,6 +312,11 @@ function ProfileDetail() {
               {currentContent.resumeButton}
             </a>
           </div>
+          <div className="profile-mbti" aria-label="INFP and INTJ">
+            <img src={`${baseHref}INFP.png`} alt="INFP" />
+            <span className="four-star" aria-hidden="true" />
+            <img src={`${baseHref}INTJ.png`} alt="INTJ" />
+          </div>
         </section>
 
         <section className="profile-tabs-card">
@@ -346,7 +334,6 @@ function ProfileDetail() {
           </div>
 
           <div key={`${modeKey}-${activeTab}`} className="profile-tab-panel profile-switch-fade">
-            <h3>{activeSection.label}</h3>
             <p className="profile-section-intro">{activeSection.intro}</p>
             <div className="profile-entry-list">
               {activeSection.items.map((item) => (
